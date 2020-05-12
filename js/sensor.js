@@ -11,7 +11,7 @@ function defineProperties(target, descriptions) {
 }
 
 const privates = new WeakMap();
-
+/*
 export const EventTargetMixin = (superclass, ...eventNames) => class extends superclass {
   constructor(...args) {
     // @ts-ignore
@@ -122,6 +122,7 @@ export function defineReadonlyProperties(target, slot, descriptions) {
     });
   }
 }
+*/
 
 export class SensorErrorEvent extends Event {
   constructor(type, errorEventInitDict) {
