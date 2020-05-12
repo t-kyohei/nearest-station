@@ -1,5 +1,5 @@
 
-
+  let acl = new Accelerometer({frequency: 30});
 navigator.permissions.query({ name: 'accelerometer' }).then(result => {
     if (result.state === 'denied') {
         console.log('加速度計センサを利用する許可は否認されました。');
@@ -20,7 +20,7 @@ navigator.permissions.query({ name: 'accelerometer' }).then(result => {
     acl.start();
 });
 
-navigator.permissions.query({ name: 'GeolocationSensor' }).then(result => {
+navigator.permissions.query({ name: 'geolocation-sensor' }).then(result => {
     if (result.state === 'denied') {
         console.log('加速度計センサを利用する許可は否認されました。');
         return;
