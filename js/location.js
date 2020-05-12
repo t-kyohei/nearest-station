@@ -22,7 +22,7 @@ navigator.permissions.query({ name: 'accelerometer' }).then(result => {
         console.log('加速度計センサを利用する許可は否認されました。');
         return;
     }
-*/
+
     let acl = new Accelerometer({frequency: 30});
     let max_magnitude = 0;
     acl.addEventListener('activate', () => console.log('測定する用意ができました'));
@@ -36,6 +36,7 @@ navigator.permissions.query({ name: 'accelerometer' }).then(result => {
         }
     });
     acl.start();
+*/
 //});
 
 navigator.permissions.query({ name: 'geolocation' }).then(result => {
