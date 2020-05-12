@@ -1,5 +1,5 @@
 // @ts-check
-import
+
 /*
  {
   __sensor__,
@@ -13,7 +13,7 @@ import
   // AbortSignal,
 } 
 */
-* from './sensor.js';
+import * from './sensor.js';
 
 const slot = __sensor__;
 
