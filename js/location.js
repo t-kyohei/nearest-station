@@ -5,6 +5,26 @@ geo.onreading = () => console.log(`緯度: ${geo.latitude}, 経度: ${geo.longit
 
 geo.onerror = event => console.error(event.error.name, event.error.message);
 
+navigator.permissions.query({ name: 'accelerometer' }).then(result => {
+    if (result.state === 'denied') {
+        console.log('加速度計センサを利用する許可は否認されました。');
+        return;
+    }
+
+    let acl = new Accelerometer({frequency: 30});
+    let max_magnitude = 0;
+    acl.addEventListener('activate', () => console.log('測定する用意ができました'));
+    acl.addEventListener('error', error => console.log(`エラー： ${error.name}`));
+    acl.addEventListener('reading', () => {
+        let magnitude = Math.hypot(acl.x, acl.y, acl.z);
+        if (magnitude > max_magnitude) {
+            max_magnitude = magnitude;
+            console.log(`最大値： ${max_magnitude} m/s2`);
+        }
+    });
+    acl.start();
+});
+
 var dbName = 'sampleDB';
 var dbVersion = '2';
 var storeName  = 'location';
