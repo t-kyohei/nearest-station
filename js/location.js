@@ -1,5 +1,10 @@
 
   let acl = new Accelerometer({frequency: 30});
+  let sensor = new Magnetometer();
+  let sensor = new Gyroscope();
+  let geo = new GeolocationSensor({frequency: 30});
+  
+  
 navigator.permissions.query({ name: 'accelerometer' }).then(result => {
     if (result.state === 'denied') {
         console.log('加速度計センサを利用する許可は否認されました。');
