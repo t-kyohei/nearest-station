@@ -35,7 +35,7 @@ navigator.permissions.query({ name: 'geolocation' }).then(result => {
         console.log('加速度計センサを利用する許可は否認されました。');
         return;
     }
-
+    alert("テスト前");
     const geo = new GeolocationSensor({ frequency: 30 });
     geo.start();
 
