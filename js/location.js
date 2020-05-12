@@ -1,9 +1,9 @@
-const geo = new GeolocationSensor({ frequency: 1 });
-geo.start();
+//const geo = new GeolocationSensor({ frequency: 1 });
+//geo.start();
 
-geo.onreading = () => console.log(`緯度: ${geo.latitude}, 経度: ${geo.longitude}`);
+//geo.onreading = () => console.log(`緯度: ${geo.latitude}, 経度: ${geo.longitude}`);
 
-geo.onerror = event => console.error(event.error.name, event.error.message);
+//geo.onerror = event => console.error(event.error.name, event.error.message);
 
 navigator.permissions.query({ name: 'accelerometer' }).then(result => {
     if (result.state === 'denied') {
