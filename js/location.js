@@ -38,7 +38,7 @@ navigator.permissions.query({ name: 'accelerometer' }).then(result => {
     acl.start();
 */
 //});
-
+/*
 GeolocationSensor.read()
   .then(geo => console.log(`緯度: ${geo.latitude}, 経度: ${geo.longitude}`))
   .catch(error => console.error(error.name));
@@ -57,7 +57,7 @@ navigator.permissions.query({ name: 'geolocation' }).then(result => {
     geo.onerror = event => console.error(event.error.name, event.error.message);
     //alert("テスト");
 });
-
+*/
 
 var dbName = 'sampleDB';
 var dbVersion = '2';
