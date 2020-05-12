@@ -71,7 +71,7 @@ openReq.onsuccess = function (event) {
 						var request = new XMLHttpRequest();
 
 						// URLを開く
-						var URL = "http://express.heartrails.com/api/xml?method=getStations&x="+locationlong+"&y="+locationlat+"";
+						var URL = "https://express.heartrails.com/api/xml?method=getStations&x="+locationlong+"&y="+locationlat+"";
 						request.open('GET', URL, true);
 
 						// レスポンスが返ってきた時の処理を記述 
