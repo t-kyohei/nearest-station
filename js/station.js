@@ -1,64 +1,3 @@
-// @ts-check
-import
-
- {
- GeolocationSensor
-} from './geolocation-sensor.js';
-
-  //let acl = new Accelerometer({frequency: 30});
-  //let sensorM = new Magnetometer();
-  //let sensorg = new Gyroscope();
-  //let geo = new GeolocationSensor({frequency: 30});
- 
-  //let sensor = new Sensor();
-  /*
-  GeolocationSensor.read()
-  .then(geo => console.log(`緯度: ${geo.latitude}, 経度: ${geo.longitude}`))
-  .catch(error => console.error(error.name));
-  */
-  /*
-navigator.permissions.query({ name: 'accelerometer' }).then(result => {
-    if (result.state === 'denied') {
-        console.log('加速度計センサを利用する許可は否認されました。');
-        return;
-    }
-
-    let acl = new Accelerometer({frequency: 30});
-    let max_magnitude = 0;
-    acl.addEventListener('activate', () => console.log('測定する用意ができました'));
-    acl.addEventListener('error', error => console.log(`エラー： ${error.name}`));
-    acl.addEventListener('reading', () => {
-        let magnitude = Math.hypot(acl.x, acl.y, acl.z);
-        if (magnitude > max_magnitude) {
-            max_magnitude = magnitude;
-            console.log(`最大値： ${max_magnitude} m/s2`);
-            alert(max_magnitude);
-        }
-    });
-    acl.start();
-*/
-//});
-/*
-GeolocationSensor.read()
-  .then(geo => console.log(`緯度: ${geo.latitude}, 経度: ${geo.longitude}`))
-  .catch(error => console.error(error.name));
-*/
-navigator.permissions.query({ name: 'geolocation' }).then(result => {
-    if (result.state === 'denied') {
-        console.log('加速度計センサを利用する許可は否認されました。');
-        return;
-    }
-   // alert("テスト前");
-    const geo = new GeolocationSensor({ frequency: 1 });
-    geo.start();
-
-    geo.onreading = () => console.log(`緯度: ${geo.latitude}, 経度: ${geo.longitude},時刻: ${geo.timestamp}`);
-
-    geo.onerror = event => console.error(event.error.name, event.error.message);
-    //alert("テスト");
-});
-
-
 var dbName = 'sampleDB';
 var dbVersion = '2';
 var storeName  = 'location';
@@ -118,7 +57,7 @@ openReq.onsuccess = function (event) {
    };
 
 
-    document.getElementById('btnLocation').addEventListener('click', function () {
+    document.getElementById('getNearest').addEventListener('click', function () {
   
 	if (navigator.geolocation) {
         	navigator.geolocation.getCurrentPosition(
@@ -127,24 +66,25 @@ openReq.onsuccess = function (event) {
               			var locationlong = pos.coords.longitude;
                 		var date = new Date().toLocaleString();
    
-				var trans = db.transaction(storeName, "readwrite");
-    				var store = trans.objectStore(storeName);
-    				store.put({lat: locationlat,long:locationlong,time:date});
+				        
+				        // XMLHttpRequestオブジェクトの作成
+						var request = new XMLHttpRequest();
 
-				var table = document.getElementById('locationTable');
-				var newRow = table.insertRow();
+						// URLを開く
+						var URL = "http://express.heartrails.com/api/xml?method=getStations&x="+locationlong+"&y="+locationlat+"";
+						request.open('GET', URL, true);
 
-				var newCell = newRow.insertCell();
-				var newText = document.createTextNode(locationlat);	
-				newCell.appendChild(newText);
+						// レスポンスが返ってきた時の処理を記述 
+						request.onload = function () {
+						  // レスポンスが返ってきた時の処理
+						  
+						  var data = this.response;
+      					  console.log(data);
+						}
 
-				newCell = newRow.insertCell();
-				newText = document.createTextNode(locationlong);
-				newCell.appendChild(newText);
-
-				newCell = newRow.insertCell();
-				newText = document.createTextNode(date);
-				newCell.appendChild(newText);
+						// リクエストをURLに送信
+						request.send();
+						
 
 			});
 
