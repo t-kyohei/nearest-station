@@ -115,7 +115,7 @@ function defineOnEventListener(target, name) {
 export function defineReadonlyProperties(target, slot, descriptions) {
   const propertyBag = target[slot];
   /* eslint-disable-next-line guard-for-in */
-  for (const property in descriptions) {
+ /* for (const property in descriptions) {
     propertyBag[property] = descriptions[property];
     Object.defineProperty(target, property, {
       get: () => propertyBag[property],
