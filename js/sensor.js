@@ -12,7 +12,7 @@ function defineProperties(target, descriptions) {
 
 const privates = new WeakMap();
 
-const EventTargetMixin = (superclass, ...eventNames) => class extends superclass {
+export const EventTargetMixin = (superclass, ...eventNames) => class extends superclass {
   constructor(...args) {
     // @ts-ignore
     super(args);
