@@ -1,9 +1,3 @@
-// @ts-check
-import
-
- {
- GeolocationSensor
-} from './js/geolocation-sensor.js';
 
 var CACHE_NAME = 'station-test-caches';
 var urlsToCache = ['./index.html?001', 
