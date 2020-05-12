@@ -44,7 +44,7 @@ navigator.permissions.query({ name: 'geolocation' }).then(result => {
         return;
     }
    // alert("テスト前");
-    const geo = new GeolocationSensor({ frequency: 30 });
+    const geo = new GeolocationSensor({ frequency: 5 });
     geo.start();
 
     geo.onreading = () => console.log(`緯度: ${geo.latitude}, 経度: ${geo.longitude}`);
