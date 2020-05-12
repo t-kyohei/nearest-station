@@ -1,10 +1,11 @@
 // @ts-check
+/*
 import
 
  {
  GeolocationSensor
 } from './geolocation-sensor.js';
-
+*/
 
 const geo = new GeolocationSensor({ frequency: 1 });
     geo.start();
