@@ -1,7 +1,7 @@
 
   let acl = new Accelerometer({frequency: 30});
-  let sensor = new Magnetometer();
-  let sensor = new Gyroscope();
+  let sensorM = new Magnetometer();
+  let sensorg = new Gyroscope();
   let geo = new GeolocationSensor({frequency: 30});
   
   
