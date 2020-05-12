@@ -6,7 +6,7 @@
   
   GeolocationSensor.read()
   .then(geo => alert("テスト"))
-  .catch(error => console.error(error.name));
+  .catch(error => alert("NG"));
   
   /*
 navigator.permissions.query({ name: 'accelerometer' }).then(result => {
