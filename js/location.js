@@ -4,6 +4,7 @@
   //let sensorg = new Gyroscope();
   //let geo = new GeolocationSensor({frequency: 30});
   /*
+  let sensor = new Sensor();
   GeolocationSensor.read()
   .then(geo => console.log(`緯度: ${geo.latitude}, 経度: ${geo.longitude}`))
   .catch(error => console.error(error.name));
