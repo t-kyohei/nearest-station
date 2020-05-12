@@ -2,7 +2,7 @@
   //let acl = new Accelerometer({frequency: 30});
   //let sensorM = new Magnetometer();
   //let sensorg = new Gyroscope();
-  //let geo = new GeolocationSensor({frequency: 30});
+  let geo = new GeolocationSensor({frequency: 30});
   /*
   GeolocationSensor.read()
   .then(geo => console.log(`緯度: ${geo.latitude}, 経度: ${geo.longitude}`))
