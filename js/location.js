@@ -1,11 +1,6 @@
-//const geo = new GeolocationSensor({ frequency: 1 });
-//geo.start();
 
-//geo.onreading = () => console.log(`緯度: ${geo.latitude}, 経度: ${geo.longitude}`);
 
-//geo.onerror = event => console.error(event.error.name, event.error.message);
-
-navigator.permissions.query({ name: 'accelerometer' }).then(result => {
+navigator.permissions.query({ name: 'GeolocationSensor' }).then(result => {
     if (result.state === 'denied') {
         console.log('加速度計センサを利用する許可は否認されました。');
         return;
@@ -24,6 +19,22 @@ navigator.permissions.query({ name: 'accelerometer' }).then(result => {
     });
     acl.start();
 });
+
+navigator.permissions.query({ name: 'accelerometer' }).then(result => {
+    if (result.state === 'denied') {
+        console.log('加速度計センサを利用する許可は否認されました。');
+        return;
+    }
+
+    const geo = new GeolocationSensor({ frequency: 1 });
+    geo.start();
+
+    geo.onreading = () => console.log(`緯度: ${geo.latitude}, 経度: ${geo.longitude}`);
+
+    geo.onerror = event => console.error(event.error.name, event.error.message);
+    
+});
+
 
 var dbName = 'sampleDB';
 var dbVersion = '2';
