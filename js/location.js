@@ -5,7 +5,7 @@
   //let geo = new GeolocationSensor({frequency: 30});
   
   GeolocationSensor.read()
-  .then(geo => aler(`緯度: ${geo.latitude}, 経度: ${geo.longitude}`))
+  .then(geo => console.log(`緯度: ${geo.latitude}, 経度: ${geo.longitude}`))
   .catch(error => console.error(error.name));
   
   /*
