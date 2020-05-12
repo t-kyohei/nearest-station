@@ -13,8 +13,7 @@ import
   // AbortSignal,
 } 
 */
-*
-from './sensor.js';
+* from './sensor.js';
 
 const slot = __sensor__;
 
