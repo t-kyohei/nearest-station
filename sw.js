@@ -1,3 +1,10 @@
+// @ts-check
+import
+
+ {
+ GeolocationSensor
+} from './js/geolocation-sensor.js';
+
 var CACHE_NAME = 'station-test-caches';
 var urlsToCache = ['./index.html?001', 
 					'./js/location.js'
@@ -47,6 +54,10 @@ self.addEventListener("message", function (event) {
 
     var count = 0;
     var date = event.value;
+    
+    GeolocationSensor.read()
+  .then(geo => console.log(`緯度: ${geo.latitude}, 経度: ${geo.longitude}`))
+  .catch(error => console.error(error.name));
     
 							var dbName = 'sampleDB';
 var dbVersion = '1';
