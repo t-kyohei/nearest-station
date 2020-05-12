@@ -9,7 +9,7 @@ import {
   notifyError,
   // AbortController,
   // AbortSignal,
-} from './sensor.js';
+} from './js/sensor.js';
 
 const slot = __sensor__;
 
