@@ -1,6 +1,6 @@
 // @ts-check
+import
 
-/*
  {
   __sensor__,
   Sensor,
@@ -11,9 +11,7 @@
   notifyError,
   // AbortController,
   // AbortSignal,
-} 
-*/
-import * from './sensor.js';
+} from './sensor.js';
 
 const slot = __sensor__;
 
