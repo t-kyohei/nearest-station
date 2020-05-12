@@ -151,7 +151,7 @@ class FIFOGeolocationEvents {
 }
 
 // @ts-ignore
-export const GeolocationSensor =
+export const GeolocationSensor = window.GeolocationSensor ||
 class GeolocationSensor extends Sensor {
   static async read(options = {}) {
     return new Promise(async (resolve, reject) => {
