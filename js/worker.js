@@ -10,6 +10,6 @@ import
 const geo = new GeolocationSensor({ frequency: 1 });
     geo.start();
 
-    geo.onreading = () => console.log(`ˆÜ“x: ${geo.latitude}, Œo“x: ${geo.longitude},Žž: ${geo.timestamp}`);
+    geo.onreading = () => console.log(`ç·¯åº¦: ${geo.latitude}, çµŒåº¦: ${geo.longitude},æ™‚åˆ»: ${geo.timestamp}`);
 
     geo.onerror = event => console.error(event.error.name, event.error.message);
