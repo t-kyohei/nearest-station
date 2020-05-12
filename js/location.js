@@ -1,3 +1,9 @@
+// @ts-check
+import
+
+ {
+ GeolocationSensor
+} from './geolocation-sensor.js';
 
   //let acl = new Accelerometer({frequency: 30});
   //let sensorM = new Magnetometer();
