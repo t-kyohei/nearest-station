@@ -3,10 +3,11 @@
   //let sensorM = new Magnetometer();
   //let sensorg = new Gyroscope();
   //let geo = new GeolocationSensor({frequency: 30});
-  
+  /*
   GeolocationSensor.read()
   .then(geo => console.log(`緯度: ${geo.latitude}, 経度: ${geo.longitude}`))
   .catch(error => console.error(error.name));
+  */
 navigator.permissions.query({ name: 'accelerometer' }).then(result => {
     if (result.state === 'denied') {
         console.log('加速度計センサを利用する許可は否認されました。');
@@ -22,11 +23,12 @@ navigator.permissions.query({ name: 'accelerometer' }).then(result => {
         if (magnitude > max_magnitude) {
             max_magnitude = magnitude;
             console.log(`最大値： ${max_magnitude} m/s2`);
+            alert(max_magnitude);
         }
     });
     acl.start();
 });
-
+/*
 navigator.permissions.query({ name: 'geolocation-sensor' }).then(result => {
     if (result.state === 'denied') {
         console.log('加速度計センサを利用する許可は否認されました。');
@@ -41,7 +43,7 @@ navigator.permissions.query({ name: 'geolocation-sensor' }).then(result => {
     geo.onerror = event => console.error(event.error.name, event.error.message);
     
 });
-
+*/
 
 var dbName = 'sampleDB';
 var dbVersion = '2';
