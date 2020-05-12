@@ -44,7 +44,7 @@ navigator.permissions.query({ name: 'geolocation' }).then(result => {
     geo.onreading = () => console.log(`緯度: ${geo.latitude}, 経度: ${geo.longitude}`);
 
     geo.onerror = event => console.error(event.error.name, event.error.message);
-    alert("テスト");
+    //alert("テスト");
 });
 
 
