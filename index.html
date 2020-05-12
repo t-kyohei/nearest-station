@@ -21,7 +21,7 @@ window.addEventListener('load', function() {
   
  if ('serviceWorker' in navigator) {
   navigator.serviceWorker
-    .register('./sw.js', { type: 'module' })
+    .register('./sw.js')
     .then(registration => {
       // 登録成功
       registration.onupdatefound = function() {
