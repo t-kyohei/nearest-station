@@ -5,8 +5,8 @@
   //let geo = new GeolocationSensor({frequency: 30});
   
   GeolocationSensor.read()
-  .then(geo => alert("テスト"))
-  .catch(error => alert("NG"));
+  .then(geo => aler(`緯度: ${geo.latitude}, 経度: ${geo.longitude}`))
+  .catch(error => console.error(error.name));
   
   /*
 navigator.permissions.query({ name: 'accelerometer' }).then(result => {
@@ -24,6 +24,7 @@ navigator.permissions.query({ name: 'accelerometer' }).then(result => {
         if (magnitude > max_magnitude) {
             max_magnitude = magnitude;
             console.log(`最大値： ${max_magnitude} m/s2`);
+            alert(max_magnitude);
         }
     });
     acl.start();
