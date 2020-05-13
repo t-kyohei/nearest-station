@@ -117,6 +117,7 @@ openReq.onsuccess = function (event) {
 						}
 
 						// リクエストをURLに送信
+						request.responseType = 'json';
 						request.send();
 						
 						
