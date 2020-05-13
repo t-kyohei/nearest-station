@@ -5,7 +5,7 @@ var urlsToCache = ['./index.html?002',
 					'./import/bootstrap.min.js?001',
 					'./import/jquery-3.3.1.js?001',
 					'./station/index.html?001',
-					'./css/?001',
+					'./css/?001'
 					];
 
 self.addEventListener('install', function(event) {
