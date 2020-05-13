@@ -81,7 +81,7 @@ openReq.onsuccess = function (event) {
 						request.onload = function () {
 						  // レスポンスが返ってきた時の処理
 						  
-						  var data = this.response;
+						  var data = this.response.response.station;
       					  console.log(data);
       					  var station =data[0];
       					  
