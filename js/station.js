@@ -82,37 +82,49 @@ openReq.onsuccess = function (event) {
 						  // レスポンスが返ってきた時の処理
 						  
 						  var data = this.response.response.station;
+						  if(data != null){
       					  console.log(data);
       					  var station =data[0];
       					  
-      					  
-      					  for (var station in data) {
- 							   console.log(data[station]['name']);
-						  }
-						  
-						  /*
-						   var table = document.getElementById('nearestStation');
+      					  var table = document.getElementById('nearestStation');
 						
- 						
-   						   var newRow = table.insertRow();
+      					  	for (var num in data) {
+ 							     var  station = data[num];
+   						   		var newRow = table.insertRow();
 
-						   var newCell = newRow.insertCell();
-						   var newText = document.createTextNode(locationlat);	
-						   newCell.appendChild(newText);
-						   newCell = newRow.insertCell();
-						   newText = document.createTextNode(locationlong);
-						   newCell.appendChild(newText);
-
-						   newCell = newRow.insertCell();
-						   newText = document.createTextNode(date);
-						   newCell.appendChild(newText);
-						   */
+   						   		//ボタン追加
+   						   	   	var newCell = newRow.insertCell();	
+   						   		const addButton = document.createElement('button');
+    							addButton.classList.add('btn');
+    							addButton.classList.add('btn-outline-secondary');
+    							addButton.type = 'button';
+  								addButton.value = '登録してここに行く';
+						   		newCell.appendChild(addButton);
+						   		
+						   		//駅名
+						   		newCell = newRow.insertCell();
+						   		newText = document.createTextNode(station['name']);
+						   		newCell.appendChild(newText);
+ 						 		//駅名
+						   		newCell = newRow.insertCell();
+						   		newText = document.createTextNode(station['line']);
+						   		newCell.appendChild(newText);
+								//都道府県
+						   		newCell = newRow.insertCell();
+						   		newText = document.createTextNode(station['prefecture']);
+						   		newCell.appendChild(newText);
+						   		
+						   		//距離
+						   		newCell = newRow.insertCell();
+						   		newText = document.createTextNode(station['distance']);
+						   		newCell.appendChild(newText);
+						   
       					     
       					  
+      					  	}
       					  
       					  
-      					  
-      					  
+      					  }
       					  
 						}
 
