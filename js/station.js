@@ -1,9 +1,10 @@
 var nowdata = "";
 
-/*
-var dbName = 'sampleDB';
-var dbVersion = '2';
-var storeName  = 'location';
+
+var dbName = 'stationDB';
+var dbVersion = '1';
+var storeName  = 'station';
+var storeName2  = 'location';
 var count = 0;
 //　DB名を指定して接続
 var openReq  = indexedDB.open(dbName, dbVersion);
@@ -17,14 +18,26 @@ openReq.onupgradeneeded = function (event) {
     var db = event.target.result;
     const objectStore = db.createObjectStore(storeName, {keyPath : 'id',autoIncrement : true })
     objectStore.createIndex("id", "id", { unique: true });
-    objectStore.createIndex("lat", "lat", { unique: false });
-    objectStore.createIndex("long", "long", { unique: false });
-    objectStore.createIndex("time", "time", { unique: false });
-
+    objectStore.createIndex("name", "name", { unique: false });
+    objectStore.createIndex("prefecture", "prefecture", { unique: false });
+    objectStore.createIndex("line", "line", { unique: false });
+    objectStore.createIndex("longitude", "longitude", { unique: false });
+    objectStore.createIndex("latitude", "latitude", { unique: false });
+    objectStore.createIndex("postal", "postal", { unique: false });
+    
+    
+    
+    const objectStore2 = db.createObjectStore(storeName2, {keyPath : 'id',autoIncrement : true })
+    objectStore2.createIndex("id", "id", { unique: true });
+    objectStore2.createIndex("staionid", "staionid", { unique: false });
+    objectStore2.createIndex("longitude", "longitude", { unique: false });
+    objectStore2.createIndex("latitude", "latitude", { unique: false });
+    objectStore2.createIndex("time", "time", { unique: false });
+    objectStore2.createIndex("distance", "distance", { unique: false });
 
     console.log('DB更新');
 }
-*/
+
 //onupgradeneededの後に実行。更新がない場合はこれだけ実行
 /*
 openReq.onsuccess = function (event) {
@@ -61,7 +74,54 @@ openReq.onsuccess = function (event) {
     } 
    };
 
+
 */
+
+
+/*
+*
+*選択した最寄り駅を表示する。
+*/
+
+    function setStation(){
+
+    //var v = val;
+  	var value = this.value;
+  	var station = window.nowdata[value];
+  	
+  	//DBのstationを開く
+	  	    var db;
+			var request = indexedDB.open(dbName);
+			request.onerror = function(event) {
+  			 console.log('DB error');
+  					};
+			request.onsuccess = function(event) {
+ 	 		db = event.target.result;
+ 	 		var trans = db.transaction(storeName, 'readwrite');
+    		var store = trans.objectStore(storeName);
+    		var putReq = store.put({name:station['name'],prefecture:station['prefecture'],line:station['line'],longitude:station['x'],latitude:station['y'],postal:station['postal']});
+    		
+    		
+    		putReq.onsuccess = function(e){
+     		//登録時に実行
+     		var id = e.target.result;
+     		 console.log('put data success');
+     		 window.location.href = 'station/?id='+id+'';
+    		}
+
+		    trans.oncomplete = function(){
+    		// トランザクション完了時(putReq.onsuccessの後)に実行
+      		 console.log('transaction complete');
+    		}
+			};
+    		
+     	
+    		
+  	
+ 			    
+
+    }
+
 /*
 *
 *最寄り駅を取得する。
@@ -112,6 +172,7 @@ openReq.onsuccess = function (event) {
     							addButton.type = 'button';
   								addButton.value = num;
   								addButton.id = 'station'+num;
+  								addButton.addEventListener('click', setStation, false);
   								var newText = document.createTextNode("ここに行く");
   								addButton.appendChild(newText);
 						   		newCell.appendChild(addButton);
@@ -164,21 +225,7 @@ openReq.onsuccess = function (event) {
 		//location.reload();
     });
 
-/*
-*
-*選択した最寄り駅を表示する。
-*/
 
-    document.getElementsByClassName("station").click(function() {
-  	var value = this.value;
-  	var data = wondow.nowdata;
-  	
-    var test = "test";					   
-						
-						   
-						   
-
-    });
     
     
     /*
