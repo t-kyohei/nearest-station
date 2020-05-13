@@ -130,8 +130,7 @@ openReq.onsuccess = function (event) {
       					     
       					  
       					  	}
-      					  	var value = document.getElementById('station1').value;
-      					  	console.log(value);
+      					  	
       					  
       					  
       					  }
@@ -147,7 +146,7 @@ openReq.onsuccess = function (event) {
 						
 						
 						
-						return data;
+						//return data;
 						
 
 			});
