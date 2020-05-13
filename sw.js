@@ -1,4 +1,4 @@
-var CACHE_NAME = 'station-test-caches-001';
+var CACHE_NAME = 'station-test-caches-002';
 var urlsToCache = ['./index.html?001', 
 					'./js/station.js?001'
 
