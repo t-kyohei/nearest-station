@@ -83,10 +83,13 @@ openReq.onsuccess = function (event) {
 						  
 						  var data = this.response;
       					  console.log(data);
-      					  var station =data['station'];
+      					  var station =data[0];
+      					  
+      					  /*
       					  for (var station in data) {
  							   console.log(data[station]['name']);
 						  }
+						  */
 						  /*
 						   var table = document.getElementById('nearestStation');
 						
