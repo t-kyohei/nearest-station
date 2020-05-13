@@ -1,7 +1,6 @@
-
-var CACHE_NAME = 'station-test-caches';
+var CACHE_NAME = 'station-test-caches-001';
 var urlsToCache = ['./index.html?001', 
-					'./js/location.js'
+					'./js/station.js?001'
 
 					];
 
@@ -16,14 +15,22 @@ self.addEventListener('install', function(event) {
 });
 
 self.addEventListener('fetch', function(event) {
-    event.respondWith(
-        caches
-            .match(event.request)
-            .then(function(response) {
-                return response ? response : fetch(event.request);
-            })
-    );
-    
+  console.log('fetch', event.request.url);
+
+  event.respondWith(
+    // リクエストに一致するデータがキャッシュにあるかどうか
+    caches.match(event.request).then(function(cacheResponse) {
+      // キャッシュがあればそれを返す、なければリクエストを投げる
+      return cacheResponse || fetch(event.request).then(function(response) {
+        return caches.open('v1').then(function(cache) {
+          // レスポンスをクローンしてキャッシュに入れる
+          cache.put(event.request, response.clone());
+          // オリジナルのレスポンスはそのまま返す
+          return response;
+        });  
+      });
+    })
+  );
 });
 
 
@@ -89,6 +96,12 @@ openReq.onsuccess = function (event) {
 }
 });
 
+
+
+/*
+*
+*オンライン同期
+*/
 
 self.addEventListener('sync', function(evt) {
 if (navigator.geolocation) {
