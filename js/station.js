@@ -82,7 +82,7 @@ openReq.onsuccess = function (event) {
       					  console.log(data);
       					  
       					  for (var station in data) {
- 							   console.log(date[station]['name'])
+ 							   console.log(data[station]['name'])
 						  }
 						  /*
 						   var table = document.getElementById('nearestStation');
