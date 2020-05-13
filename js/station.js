@@ -1,3 +1,4 @@
+/*
 var dbName = 'sampleDB';
 var dbVersion = '2';
 var storeName  = 'location';
@@ -21,8 +22,9 @@ openReq.onupgradeneeded = function (event) {
 
     console.log('DB更新');
 }
-
+*/
 //onupgradeneededの後に実行。更新がない場合はこれだけ実行
+/*
 openReq.onsuccess = function (event) {
     var db = event.target.result;
     var trans = db.transaction(storeName, 'readonly');
@@ -31,6 +33,7 @@ openReq.onsuccess = function (event) {
     var weather = [];
 
     store.openCursor().onsuccess = function(event) {
+    
     var cursor = event.target.result;
       if (cursor) {
 	var table = document.getElementById('locationTable');
@@ -56,7 +59,7 @@ openReq.onsuccess = function (event) {
     } 
    };
 
-
+*/
     document.getElementById('getNearest').addEventListener('click', function () {
   
 	if (navigator.geolocation) {
@@ -128,7 +131,7 @@ openReq.onsuccess = function (event) {
 		//location.reload();
     });
     
-    
+    /*
      document.getElementById('btnLocationDel').addEventListener('click', function () {
 
 		var db = event.target.result;
@@ -143,149 +146,4 @@ openReq.onsuccess = function (event) {
 		}
 		
     });
-
-    document.getElementById('btnLocationInterval').addEventListener('click', function () {
-    
-    alert("5秒ごとに位置情報を取得します。6回で終了します。");
-    var count = 0;
-    var getlocation = function(){
-			if (navigator.geolocation) {
-    		    	navigator.geolocation.getCurrentPosition(
-    		    		function (pos) {
-    		            	var locationlat = pos.coords.latitude;
-    		          		var locationlong = pos.coords.longitude;
-    		            	var date = new Date().toLocaleString();
-   
-							var trans = db.transaction(storeName, "readwrite");
-    				    	var store = trans.objectStore(storeName);
-    						store.put({lat: locationlat,long:locationlong,time:date});
-
-							var table = document.getElementById('locationTable');
-							var newRow = table.insertRow();
-
-							var newCell = newRow.insertCell();
-							var newText = document.createTextNode(locationlat);	
-							newCell.appendChild(newText);
-
-							newCell = newRow.insertCell();
-							newText = document.createTextNode(locationlong);
-							newCell.appendChild(newText);
-
-							newCell = newRow.insertCell();
-							newText = document.createTextNode(date);
-							newCell.appendChild(newText);
-
-					});
-        	}
-        	
-        	count++;
-	 }
-	 
-	var id = setInterval(function(){
-    getlocation();
-    if(count > 5){
-      clearInterval(id);//idをclearIntervalで指定している
-    }}, 5000);
-    
-    
-    });
-
-   //監視ID
-    var watch_id;
-    var count = 0;
-    
-	//位置情報の監視を開始
-    document.getElementById('btnLocationWatch').addEventListener('click', function () {
-    
-    alert("位置情報の監視を開始します。");
-    		if (navigator.geolocation) {
-    		    	watch_id = navigator.geolocation.watchPosition(
-    		    		function (pos) {
-    		            	var locationlat = pos.coords.latitude;
-    		          		var locationlong = pos.coords.longitude;
-    		            	var date = new Date().toLocaleString();
-   
-							var trans = db.transaction(storeName, "readwrite");
-    				    	var store = trans.objectStore(storeName);
-    						store.put({lat: locationlat,long:locationlong,time:date});
-
-							var table = document.getElementById('locationTable');
-							var newRow = table.insertRow();
-
-							var newCell = newRow.insertCell();
-							var newText = document.createTextNode(locationlat);	
-							newCell.appendChild(newText);
-
-							newCell = newRow.insertCell();
-							newText = document.createTextNode(locationlong);
-							newCell.appendChild(newText);
-
-							newCell = newRow.insertCell();
-							newText = document.createTextNode(date);
-							newCell.appendChild(newText);
-	    				   	count++;
-	 
-					});
-        	}
-        	
-     
-	 
-    
-    });
-    
-    
-    
-    //位置情報の監視を終了
-    document.getElementById('btnLocationClear').addEventListener('click', function () {
-    
-    alert("位置情報の監視を終了します。"+count+"回取得しました。");
-			if (navigator.geolocation) {
-    		    	watch_id = navigator.geolocation.clearWatch(watch_id);
-      				count = 0;
-        	}
-        	
-     
-    
-    });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-}
+*/
