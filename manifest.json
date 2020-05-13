@@ -1,6 +1,6 @@
 {
-    "name": "pwa camera test",
-    "short_name": "PWA CAMERA",
+    "name": "Nearest Station",
+    "short_name": "NS",
     "icons": [{
           "src": "img/icon.jpg",
           "sizes": "192x192",
