@@ -169,7 +169,7 @@ openReq.onsuccess = function (event) {
 *選択した最寄り駅を表示する。
 */
 
-    document.getElementsByClassName("station").addEventListener('click', function () {
+    document.getElementsByClassName("station").click(function() {
   	var value = this.value;
   	var data = wondow.nowdata;
   	
