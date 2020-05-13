@@ -1,3 +1,5 @@
+var date ="";
+
 /*
 var dbName = 'sampleDB';
 var dbVersion = '2';
@@ -81,12 +83,19 @@ openReq.onsuccess = function (event) {
 						request.onload = function () {
 						  // レスポンスが返ってきた時の処理
 						  
-						  var data = this.response.response.station;
+						  data = this.response.response.station;
 						  if(data != null){
       					  console.log(data);
       					  var station =data[0];
       					  
       					  var table = document.getElementById('nearestStation');
+      					  var tbodies = document.getElementById("nsbody");
+      					  
+    					  for (var i = 0; i < tbodies.length; i++) {
+        					while (tbodies[i].rows.length > 0) {
+            				tbodies[i].deleteRow(0);
+        					}
+    					  }
 						
       					  	for (var num in data) {
  							     var  station = data[num];
