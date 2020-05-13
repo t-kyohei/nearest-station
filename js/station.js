@@ -92,7 +92,7 @@ openReq.onsuccess = function (event) {
       					  
       					  var table = document.getElementById('nearestStation');
       					  
-      					  while(table.rows[0]) {table.deleteRow( 0 );}  					  }
+      					  //while(table.rows[0]) {table.deleteRow( 0 );}  					  }
 						
       					  	for (var num in data) {
  							     var  station = data[num];
