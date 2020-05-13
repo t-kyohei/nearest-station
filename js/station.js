@@ -99,7 +99,7 @@ openReq.onsuccess = function (event) {
     							addButton.classList.add('btn-outline-secondary');
     							addButton.type = 'button';
   								addButton.value = station;
-  								newText = document.createTextNode("ここに行く");
+  								var newText = document.createTextNode("ここに行く");
   								addButton.appendChild(newText);
 						   		newCell.appendChild(addButton);
 						   		
