@@ -89,13 +89,7 @@ openReq.onsuccess = function (event) {
       					  var station =data[0];
       					  
       					  var table = document.getElementById('nearestStation');
-      					  var tbodies = document.getElementById("nsbody");
-      					  
-    					  for (var i = 0; i < tbodies.length; i++) {
-        					while (tbodies[i].rows.length > 0) {
-            				tbodies[i].deleteRow(0);
-        					}
-    					  }
+      					  while( table.rows[ 0 ] ) table.deleteRow( 0 );    					  }
 						
       					  	for (var num in data) {
  							     var  station = data[num];
