@@ -1,7 +1,11 @@
-var CACHE_NAME = 'station-test-caches-003';
-var urlsToCache = ['./index.html?001', 
-					'./js/station.js?001'
-
+var CACHE_NAME = 'station-test-caches-004';
+var urlsToCache = ['./index.html?002', 
+					'./js/station.js?002',
+					'./import/bootstrap.min.css?001',
+					'./import/bootstrap.min.js?001',
+					'./import/jquery-3.3.1.js?001',
+					'./station/index.html?001',
+					'./css/?001',
 					];
 
 self.addEventListener('install', function(event) {
