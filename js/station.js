@@ -1,4 +1,4 @@
-var date ="";
+var nowdata = "";
 
 /*
 var dbName = 'sampleDB';
@@ -62,7 +62,7 @@ openReq.onsuccess = function (event) {
    };
 
 */
-    document.getElementById('getNearest').addEventListener('click', function () {
+    nowdata = document.getElementById('getNearest').addEventListener('click', function () {
   
 	if (navigator.geolocation) {
         	navigator.geolocation.getCurrentPosition(
@@ -83,7 +83,7 @@ openReq.onsuccess = function (event) {
 						request.onload = function () {
 						  // レスポンスが返ってきた時の処理
 						  
-						  data = this.response.response.station;
+						  var data = this.response.response.station;
 						  if(data != null){
       					  console.log(data);
       					  var station =data[0];
@@ -153,7 +153,7 @@ openReq.onsuccess = function (event) {
 						
 						
 						
-						
+						return data;
 						
 
 			});
