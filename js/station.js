@@ -62,7 +62,10 @@ openReq.onsuccess = function (event) {
    };
 
 */
-//    nowdata = 
+/*
+*
+*最寄り駅を取得する。
+*/
     document.getElementById('getNearest').addEventListener('click', function () {
   
 	if (navigator.geolocation) {
@@ -107,7 +110,7 @@ openReq.onsuccess = function (event) {
     							addButton.classList.add('btn-outline-secondary');
     							addButton.classList.add('station');
     							addButton.type = 'button';
-  								addButton.value = station;
+  								addButton.value = num;
   								addButton.id = 'station'+num;
   								var newText = document.createTextNode("ここに行く");
   								addButton.appendChild(newText);
@@ -160,6 +163,23 @@ openReq.onsuccess = function (event) {
         }
 		//location.reload();
     });
+
+/*
+*
+*選択した最寄り駅を表示する。
+*/
+
+    document.getElementsByClassName("station").addEventListener('click', function () {
+  	var value = this.value;
+  	var data = wondow.nowdata;
+  	
+    var test = "test";					   
+						
+						   
+						   
+
+    });
+    
     
     /*
      document.getElementById('btnLocationDel').addEventListener('click', function () {
