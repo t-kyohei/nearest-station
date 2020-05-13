@@ -85,6 +85,7 @@ openReq.onsuccess = function (event) {
 						  // レスポンスが返ってきた時の処理
 						  
 						  var data = this.response.response.station;
+						  window.nowdata = data;
 						  if(data != null){
       					  console.log(data);
       					  var station =data[0];
@@ -147,7 +148,7 @@ openReq.onsuccess = function (event) {
 						
 						
 						
-						//return data;
+					
 						
 
 			});
