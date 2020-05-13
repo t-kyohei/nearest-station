@@ -2,7 +2,7 @@
     "name": "pwa camera test",
     "short_name": "PWA CAMERA",
     "icons": [{
-          "src": "icon.png",
+          "src": "img/icon.jpg",
           "sizes": "192x192",
           "type": "image/png"
         }],
