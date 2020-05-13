@@ -18,8 +18,7 @@ self.addEventListener('install', function(event) {
 });
 
 self.addEventListener('fetch', function(event) {
-  console.log('fetch', event.request.url);
-
+ 
   event.respondWith(
     // リクエストに一致するデータがキャッシュにあるかどうか
     caches.match(event.request).then(function(cacheResponse) {
