@@ -62,7 +62,8 @@ openReq.onsuccess = function (event) {
    };
 
 */
-    nowdata = document.getElementById('getNearest').addEventListener('click', function () {
+//    nowdata = 
+    document.getElementById('getNearest').addEventListener('click', function () {
   
 	if (navigator.geolocation) {
         	navigator.geolocation.getCurrentPosition(
