@@ -80,32 +80,41 @@ openReq.onsuccess = function (event) {
 						  
 						  var data = this.response;
       					  console.log(data);
+      					  
+      					  for (var station in data) {
+ 							   console.log(date[station]['name'])
+						  }
+						  /*
+						   var table = document.getElementById('nearestStation');
+						
+ 						
+   						   var newRow = table.insertRow();
+
+						   var newCell = newRow.insertCell();
+						   var newText = document.createTextNode(locationlat);	
+						   newCell.appendChild(newText);
+						   newCell = newRow.insertCell();
+						   newText = document.createTextNode(locationlong);
+						   newCell.appendChild(newText);
+
+						   newCell = newRow.insertCell();
+						   newText = document.createTextNode(date);
+						   newCell.appendChild(newText);
+						   */
+      					     
+      					  
+      					  
+      					  
+      					  
+      					  
+      					  
 						}
 
 						// リクエストをURLに送信
 						request.send();
 						
 						
-						for (var station in data) {
- 							   console.log(date[station]['name'])
-						}
-						/*
-						var table = document.getElementById('nearestStation');
 						
-						
-						var newRow = table.insertRow();
-
-						var newCell = newRow.insertCell();
-						var newText = document.createTextNode(locationlat);	
-						newCell.appendChild(newText);
-						newCell = newRow.insertCell();
-						newText = document.createTextNode(locationlong);
-						newCell.appendChild(newText);
-
-						newCell = newRow.insertCell();
-						newText = document.createTextNode(date);
-						newCell.appendChild(newText);
-						*/
 						
 						
 						
