@@ -98,14 +98,16 @@ openReq.onsuccess = function (event) {
     							addButton.classList.add('btn');
     							addButton.classList.add('btn-outline-secondary');
     							addButton.type = 'button';
-  								addButton.value = '登録してここに行く';
+  								addButton.value = station;
+  								newText = document.createTextNode("ここに行く");
+  								addButton.appendChild(newText);
 						   		newCell.appendChild(addButton);
 						   		
 						   		//駅名
 						   		newCell = newRow.insertCell();
 						   		newText = document.createTextNode(station['name']);
 						   		newCell.appendChild(newText);
- 						 		//駅名
+ 						 		//路線名
 						   		newCell = newRow.insertCell();
 						   		newText = document.createTextNode(station['line']);
 						   		newCell.appendChild(newText);
