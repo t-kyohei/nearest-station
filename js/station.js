@@ -97,13 +97,16 @@ openReq.onsuccess = function (event) {
    						   		const addButton = document.createElement('button');
     							addButton.classList.add('btn');
     							addButton.classList.add('btn-outline-secondary');
+    							addButton.classList.add('station');
     							addButton.type = 'button';
   								addButton.value = station;
+  								addButton.id = 'station'+num;
   								var newText = document.createTextNode("ここに行く");
   								addButton.appendChild(newText);
 						   		newCell.appendChild(addButton);
 						   		
 						   		//駅名
+						   		var innerText = station['name']+"駅<br>"+station['line']
 						   		newCell = newRow.insertCell();
 						   		newText = document.createTextNode(station['name']);
 						   		newCell.appendChild(newText);
@@ -124,6 +127,8 @@ openReq.onsuccess = function (event) {
       					     
       					  
       					  	}
+      					  	var value = document.getElementById('station1').value;
+      					  	console.log(value);
       					  
       					  
       					  }
