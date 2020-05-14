@@ -118,26 +118,31 @@ var watch_id;
 function getDistance(){
   	document.getElementById('getDistance').classList.add("d-none");
   	document.getElementById('loadDistance').classList.remove("d-none");
-  	
+  	var nowdate = new Date();
+  	nowdate.setSeconds(nowdate.getSeconds() - 10);
   	
 	if (navigator.geolocation) {
         	watch_id=navigator.geolocation.watchPosition(
         		function (pos) {
                 		var locationlat = pos.coords.latitude;
               			var locationlong = pos.coords.longitude;
-                		var date = new Date().toLocaleString();
+                		var date = new Date();
+                		var insertdate = date.toLocaleString();
                 		var distannce = distance(locationlat, locationlong, dlat, dlong) ;
                 		var displayDistannce = Math.round(Number(distannce)*1000);
                 		//距離を追加
                 		var node = document.getElementById('distance');
-  						var newText =  document.createTextNode(displayDistannce+"m ("+date+"時点)");
+  						var newText =  document.createTextNode(displayDistannce+"m ("+insertdate+"時点)");
   						if(node.childNodes.length != 0){
   						node.removeChild(node.firstChild);
   						}
   						node.appendChild(newText);
                 		
-                		
+                		if(nowdate < date){
+                		nowdate.setSeconds(nowdate.getSeconds() + 10);
+                		}
                 		//DBのlocationを開く
+                		if(nowdate=="now" || nowdate < date){
 	  	                var db;
 			            var request = indexedDB.open(dbName,dbVersion);
 			            request.onerror = function(event) {
@@ -147,7 +152,7 @@ function getDistance(){
  	 		            db = event.target.result;
  	 		            var trans = db.transaction(storeName2, 'readwrite');
     		            var store = trans.objectStore(storeName2);
-    		            var putReq = store.put({stationid:id,longitude:locationlong,latitude:locationlat,time:date,distance:displayDistannce});
+    		            var putReq = store.put({stationid:id,longitude:locationlong,latitude:locationlat,time:insertdate,distance:displayDistannce});
     		              		
     		            putReq.onsuccess = function(e){
      		            //登録時に実行
@@ -158,10 +163,14 @@ function getDistance(){
 
 		                trans.oncomplete = function(){
     		            // トランザクション完了時(putReq.onsuccessの後)に実行
-      		             console.log('transaction complete');
+    		            nowdate = date;
+      		             console.log('transaction complete'+nowdate);
     		            }
+    		            
+    		            
+    		            
                 		};
-                		
+                		}
                 },
 			  function(error){
 				},
@@ -396,6 +405,8 @@ var markerData = [ // マーカーを立てる場所名・緯度・経度
  }
 ];
 
+
+
 //現在地を取得
 if (navigator.geolocation) {
         	navigator.geolocation.getCurrentPosition(
@@ -527,4 +538,42 @@ function markerEvent(i) {
   }
 
 }
+
+/*
+*登録した位置情報を削除する
+*
+*/
+
+document.getElementById('deleteDistance').addEventListener('click', function () {
+		var db;
+		var request = indexedDB.open(dbName);
+		request.onerror = function(event) {
+		 console.log('DB error');
+ 					};
+		request.onsuccess = function(event) {
+
+		var db = event.target.result;
+    	var trans = db.transaction(storeName2, 'readwrite');
+    	var store = trans.objectStore(storeName2);
+    	store.openCursor().onsuccess = function(event) {
+            var cursor = event.target.result;
+           if (cursor) {
+                if(cursor.value.stationid == id ){
+                  store.delete(cursor.value.id);
+                }
+              cursor.continue();
+           }
+           
+           
+        }
+		
+		
+		 trans.oncomplete = function(){
+			alert("この駅への測定を全て削除しました。");
+    	}
+        
+		
+		
+	}	
+});
 

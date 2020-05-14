@@ -300,7 +300,18 @@ openReq.onsuccess = function (event) {
 		var db = event.target.result;
     	var trans = db.transaction(storeName, 'readwrite');
     	var store = trans.objectStore(storeName);
-    
+    	store.openCursor().onsuccess = function(event) {
+            var cursor = event.target.result;
+           if (cursor) {
+                if(cursor.value.name == station['name'] && cursor.value.line == station['line']){
+                  var value = cursor.value.id;
+                  window.location.href = 'station/?id='+value+'';
+                }else{ 
+                	cursor.continue();
+                }
+              
+           }
+        }
    	 	var request = store.clear();
 		request.onsuccess = function (event) {
 		// 全件削除後の処理
@@ -309,4 +320,5 @@ openReq.onsuccess = function (event) {
 		}
 		
     });
-*/
+    */
+
