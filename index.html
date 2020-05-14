@@ -44,33 +44,36 @@ window.addEventListener('load', function() {
 
 <div class="main container">
 <br>
-<br>
-<button id="getNearest"type="button" class="btn btn-primary">最寄りの駅に行く</button>
 
+<div id="neareststationarea" class="card">
+<div class="card-body">
+<h5 >近くの駅に行く</h5>
+<button id="getNearest"type="button" class="btn btn-primary">近くの駅を取得する</button>
 <br>
 <br>
-
 <table class="table" id="nearestStation">
 <tbody id="nsbody">
 
 
 </tbody>
 </table>
-
-<br>
-<br>
-<br>
+</div>
+</div>
 <br>
 
+<br>
 
-<h4 id="past" class="d-none"><履歴から駅に行く></h4>
-<table class="table" id="pastStation">
+<div class="card">
+<div class="card-body">
+<h5 id="past" class="d-none">履歴から駅に行く</h5>
+<table class="table table-hover" id="pastStation">
 <tbody >
 
 
 </tbody>
 </table>
-
+</div>
+</div>
 
 </div>
 

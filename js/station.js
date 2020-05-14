@@ -68,10 +68,18 @@ openReq.onsuccess = function (event) {
  		newCell.appendChild(addButton);
  		
  		//駅名
- 		//var innerText = station['name']+"駅<br>"+station['line']
+ 		var innerText = cursor.value.name+"駅("+cursor.value.prefecture+")"
+ 		var br = document.createElement("br");
  		newCell = newRow.insertCell();
- 		newText = document.createTextNode(cursor.value.name);
+ 		newText = document.createTextNode(innerText);
  		newCell.appendChild(newText);
+ 		newCell.appendChild(br);
+ 		innerText = cursor.value.line+"";
+ 		newText = document.createTextNode(innerText);
+ 		newCell.appendChild(newText);
+ 		
+ 		
+ 		/*
  		//路線名
  		newCell = newRow.insertCell();
  		newText = document.createTextNode(cursor.value.line);
@@ -80,6 +88,8 @@ openReq.onsuccess = function (event) {
  		newCell = newRow.insertCell();
  		newText = document.createTextNode(cursor.value.prefecture);
  		newCell.appendChild(newText);
+ 		*/
+ 		document.getElementById('past').classList.remove('d-none');
 
     	cursor.continue();
 	
@@ -105,7 +115,7 @@ openReq.onsuccess = function (event) {
     }
 /*
 *
-*選択した最寄り駅を表示する。
+*選択した最寄り駅を選択する。
 */
 
     function setStation(){
@@ -113,15 +123,32 @@ openReq.onsuccess = function (event) {
     //var v = val;
   	var value = this.value;
   	var station = window.nowdata[value];
-  	
-  	//DBのstationを開く
-	  	    var db;
+  
+  	//駅の重複登録をチェック
+        	//DBのstationを開く
+  			var db;
 			var request = indexedDB.open(dbName);
 			request.onerror = function(event) {
   			 console.log('DB error');
   					};
 			request.onsuccess = function(event) {
  	 		db = event.target.result;
+ 	 		var trans = db.transaction(storeName, 'readonly');
+    		var store = trans.objectStore(storeName);
+    		store.openCursor().onsuccess = function(event) {
+            var cursor = event.target.result;
+           if (cursor) {
+                if(cursor.value.name == station['name'] && cursor.value.line == station['line']){
+                  var value = cursor.value.id;
+                  window.location.href = 'station/?id='+value+'';
+                }else{ 
+                	cursor.continue();
+                }
+              
+           }else{
+           
+            //駅の登録後遷移
+		  	//DBのstationを更新で開く
  	 		var trans = db.transaction(storeName, 'readwrite');
     		var store = trans.objectStore(storeName);
     		var putReq = store.put({name:station['name'],prefecture:station['prefecture'],line:station['line'],longitude:station['x'],latitude:station['y'],postal:station['postal']});
@@ -132,18 +159,19 @@ openReq.onsuccess = function (event) {
      		var id = e.target.result;
      		 console.log('put data success');
      		 window.location.href = 'station/?id='+id+'';
-    		}
+    		};
 
 		    trans.oncomplete = function(){
     		// トランザクション完了時(putReq.onsuccessの後)に実行
       		 console.log('transaction complete');
-    		}
-			};
-    		
-     	
-    		
-  	
- 			    
+    		};
+    		 
+    		 
+		   }
+          
+           
+           }
+           }
 
     }
 
@@ -203,10 +231,22 @@ openReq.onsuccess = function (event) {
 						   		newCell.appendChild(addButton);
 						   		
 						   		//駅名
-						   		var innerText = station['name']+"駅<br>"+station['line']
+						   		var innerText = station['name']+"駅("+station['prefecture']+")";
 						   		newCell = newRow.insertCell();
-						   		newText = document.createTextNode(station['name']);
+						   		newText = document.createTextNode(innerText);
 						   		newCell.appendChild(newText);
+						   		var br = document.createElement("br");
+						   		newCell.appendChild(br);
+						   		innerText =station['line'];
+						   		newText = document.createTextNode(innerText);
+						   		newCell.appendChild(newText);
+						   		var br2 = document.createElement("br");
+						   		newCell.appendChild(br2);
+						   		innerText = "ここからの距離："+station['distance']+""
+						   		newText = document.createTextNode(innerText);
+						   		newCell.appendChild(newText);
+						   		
+						   		/*
  						 		//路線名
 						   		newCell = newRow.insertCell();
 						   		newText = document.createTextNode(station['line']);
@@ -220,6 +260,7 @@ openReq.onsuccess = function (event) {
 						   		newCell = newRow.insertCell();
 						   		newText = document.createTextNode(station['distance']);
 						   		newCell.appendChild(newText);
+						   		*/
 						   
       					     
       					  

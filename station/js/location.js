@@ -40,11 +40,14 @@ openReq.onsuccess = function (event) {
   	var data = event.target.result;
   	//駅名を追加
   	var node = document.getElementById('destination');
-  	var newText =  document.createTextNode(data.name+"駅("+data.line+")");
+  	var newText =  document.createTextNode(data.name+"駅("+data.line+")に行く");
   	node.appendChild(newText);
   	//位置情報をセット
   	dlong =data.longitude;
     dlat = data.latitude;
+    
+    //MAP表示
+    showMap();
    	};
 	
 /*
@@ -113,7 +116,10 @@ stopDistance();
 var watch_id;
 
 function getDistance(){
-  
+  	document.getElementById('getDistance').classList.add("d-none");
+  	document.getElementById('loadDistance').classList.remove("d-none");
+  	
+  	
 	if (navigator.geolocation) {
         	watch_id=navigator.geolocation.watchPosition(
         		function (pos) {
@@ -133,7 +139,7 @@ function getDistance(){
                 		
                 		//DBのlocationを開く
 	  	                var db;
-			            var request = indexedDB.open(dbName);
+			            var request = indexedDB.open(dbName,dbVersion);
 			            request.onerror = function(event) {
   			             console.log('DB error');
   			            		};
@@ -141,19 +147,30 @@ function getDistance(){
  	 		            db = event.target.result;
  	 		            var trans = db.transaction(storeName2, 'readwrite');
     		            var store = trans.objectStore(storeName2);
-    		            var putReq = store.put({staionid:id,longitude:locationlong,latitude:locationlat,time:date,distance:displayDistannce});
-                		
+    		            var putReq = store.put({stationid:id,longitude:locationlong,latitude:locationlat,time:date,distance:displayDistannce});
+    		              		
+    		            putReq.onsuccess = function(e){
+     		            //登録時に実行
+     		            var id = e.target.result;
+     		             console.log('put data success');
+     		             
+     		             }
+
+		                trans.oncomplete = function(){
+    		            // トランザクション完了時(putReq.onsuccessの後)に実行
+      		             console.log('transaction complete');
+    		            }
+                		};
                 		
                 },
-			
-			  function( error ){
+			  function(error){
 				},
-				{
-					"enableHighAccuracy": true,
-					"timeout": 8000,
-					"maximumAge": 2000
-				});
-            }
+				{"enableHighAccuracy": true,
+				"timeout": 8000,
+				"maximumAge": 2000
+				}
+			  );
+           }
             
 }
 
@@ -165,6 +182,9 @@ function getDistance(){
 */
 
 function stopDistance(){
+	document.getElementById('loadDistance').classList.add("d-none");
+  	document.getElementById('getDistance').classList.remove("d-none");
+  	
 	if (navigator.geolocation) {
     		    	watch_id = navigator.geolocation.clearWatch(watch_id);
         	}
@@ -312,6 +332,12 @@ function stopDistance(){
 					
 						
 
+			},
+			function(error){
+			},
+			{"enableHighAccuracy": true,
+			"timeout": 8000,
+			"maximumAge": 2000
 			});
 
 
@@ -341,41 +367,100 @@ function stopDistance(){
 
 
 /*
+*停止ボタン押下時に、距離を計算を停止
+*/
+document.getElementById('showMap').addEventListener('click', function () {
+
+showMap();
+
+ });
+
+
+/*
 *
 *googleMap取得
 */
+
+
+function showMap(){
+
 var map;
 var marker = [];
 var infoWindow = [];
 var markerData = [ // マーカーを立てる場所名・緯度・経度
   {
-       name: 'TAM 東京',
-       lat: 35.6954806,
-        lng: 139.76325010000005,
-        icon: 'tam.png' // TAM 東京のマーカーだけイメージを変更する
- }, {
-        name: '小川町駅',
-     lat: 35.6951212,
-        lng: 139.76610649999998
- }, {
-        name: '淡路町駅',
-     lat: 35.69496,
-      lng: 139.76746000000003
- }, {
-        name: '御茶ノ水駅',
-        lat: 35.6993529,
-        lng: 139.76526949999993
- }, {
-        name: '神保町駅',
-     lat: 35.695932,
-     lng: 139.75762699999996
- }, {
-        name: '新御茶ノ水駅',
-       lat: 35.696932,
-     lng: 139.76543200000003
+       name: '目的地',
+       lat: dlat,
+        lng: dlong,
+        //icon:'img/past.png'
  }
 ];
-initMap();
+
+//現在地を取得
+if (navigator.geolocation) {
+        	navigator.geolocation.getCurrentPosition(
+        		function (pos) {
+                		var locationlat = pos.coords.latitude;
+              			var locationlong = pos.coords.longitude;
+              			var date = new Date().toLocaleString();
+              			//行動履歴の描画
+                      	var db;
+                      	var request = indexedDB.open(dbName);
+                      	request.onerror = function(event) {
+                        	console.log('DB error');
+                        				};
+                      	request.onsuccess = function(event) {
+                       	db = event.target.result;
+                       	var trans = db.transaction(storeName2, 'readonly');
+                          var store = trans.objectStore(storeName2);
+                          store.openCursor().onsuccess = function(event) {
+                      	var cursor = event.target.result;
+                            if (cursor) {
+                      	   if(cursor.value.stationid == id){
+                      	   
+                      	   var pushtext =  { name: cursor.value.time,lat: cursor.value.latitude,lng: cursor.value.longitude, icon:'img/past.png'};
+                      	   markerData.push(pushtext);
+                      	   }
+                      	   
+                      	   cursor.continue();
+                      	
+                      	  }else{
+                      	  var pushtext =  { name: '現在地',lat: locationlat,lng: locationlong, icon:'img/now.png'};
+              			  markerData.push(pushtext);
+              			  
+              			  //初期表示時に現在地との距離を測定
+              			 var distannce = distance(locationlat, locationlong, dlat, dlong) ;
+                   		var displayDistannce = Math.round(Number(distannce)*1000);
+                		//距離を追加
+                		var node = document.getElementById('distance');
+  						var newText =  document.createTextNode(displayDistannce+"m ("+date+"時点)");
+  						if(node.childNodes.length != 0){
+  						node.removeChild(node.firstChild);
+  						}
+  						node.appendChild(newText);
+              			  
+              			  
+                      	  initMap();
+                      	  }
+                      	  
+                      	};
+                      	
+                          };
+
+              },
+			  function(error){
+			  },
+			  {"enableHighAccuracy": true,
+				"timeout": 8000,
+				"maximumAge": 2000
+			  });
+}
+
+
+
+
+
+
 function initMap() {
  // 地図の作成
     var mapLatLng = new google.maps.LatLng({lat: markerData[0]['lat'], lng: markerData[0]['lng']}); // 緯度経度のデータ作成
@@ -383,7 +468,13 @@ function initMap() {
      center: mapLatLng, // 地図の中心を指定
       zoom: 15 // 地図のズームを指定
    });
- 
+
+ // 範囲内に収める
+var minX ;
+var minY ;
+var maxX ;
+var maxY ;
+
  // マーカー毎の処理
  for (var i = 0; i < markerData.length; i++) {
         markerLatLng = new google.maps.LatLng({lat: markerData[i]['lat'], lng: markerData[i]['lng']}); // 緯度経度のデータ作成
@@ -397,13 +488,35 @@ function initMap() {
        });
  
      markerEvent(i); // マーカーにクリックイベントを追加
+     if(i!=0){
+     marker[i].setOptions({// TAM 東京のマーカーのオプション設定
+        icon: {
+         url: markerData[i]['icon']// マーカーの画像を変更
+       }
+     });
+     }
+     minX = marker[0].getPosition().lng();
+     minY = marker[0].getPosition().lat();
+     maxX = marker[0].getPosition().lng();
+     maxY = marker[0].getPosition().lat();
+
+     var lt = marker[i].getPosition().lat();
+     var lg = marker[i].getPosition().lng();
+     if (lg <= minX){ minX = lg; }
+     if (lg > maxX){ maxX = lg; }
+     if (lt <= minY){ minY = lt; }
+     if (lt > maxY){ maxY = lt; }
+     
+     
  }
  
-   marker[0].setOptions({// TAM 東京のマーカーのオプション設定
-        icon: {
-         url: markerData[0]['icon']// マーカーの画像を変更
-       }
-   });
+var sw = new google.maps.LatLng(maxY, minX);
+var ne = new google.maps.LatLng(minY, maxX);
+var bounds = new google.maps.LatLngBounds(sw, ne);
+map.fitBounds(bounds);
+
+
+   
 }
  
 // マーカーにクリックイベントを追加
@@ -413,5 +526,5 @@ function markerEvent(i) {
   });
   }
 
-
+}
 

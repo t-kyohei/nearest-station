@@ -45,48 +45,66 @@ window.addEventListener('load', function() {
  <div class="main container"> 
  <br>
  <div class="form-inline">
- <h3>目的地名： </h3> <h3 id="destination"></h3>
+ <h5 id="destination"></h5>
  </div>
  <br>
- <button class="btn-square" id="getDistance" >目的地までの距離取得</button>
- <br>
- <br>
- <button class="btn-square" id="stopDistance" >距離取得を停止する</button>
- <br>
- <br>
- <h4>目的地までの距離: </h4> <h4 id="distance"></h4>
  
-
-<br>
-<br>
-
-<button class="btn-square" id="btnLocationWatch">経路再取得</button>
-
-<br>
-<br>
-
-
-
-  
+ <div class="card">
+ <div class="card-body">
+ <button class="btn btn-primary" id="getDistance" >目的地までの距離を測定する</button>
+ <div class="d-none" id="loadDistance">
+ <button class="btn btn-primary" disabled>測定中<img src="img/load.gif"></button>
+ <button class="btn btn-warning float-right" id="stopDistance" class="d-none">停止する</button><br>
+ <br>
+ ※継続して距離を測定し続けます。
+ </div>
+ <br>
+ <br>
+ <h5 id="distance"></h5>
+ <br>
+ </div>
+ </div>
+ 
 </div>
-  <div id="map"></div>
- 
 
+
+<div class="map container main">
+
+<h5 class="maptext">
+目的地までのMAP
+
+<button class="btn page-link text-dark d-inline-block btnright" id="showMap">
+MAP再表示
+</button>
+
+</h5>
+※測定した地点の履歴を表示します
+
+<div id="map"></div>
+</div>
 
 
 
 <style>
 html { height: 100% }
 body { height: 100% }
-#map { height: 50%; 
-	  width: 80%; 
-	  margin :10%;}
+#map { height: 90%; 
+	  width: 100%; }
+
+.map {height: 100%;
+      width: 100%; 
+      padding-top:10%;
+      padding-bottom:20%;
+      padding-right:5%;
+      padding-left:5%;
+      }
 </style>
 
 
 <script src="../import/jquery-3.3.1.js"></script>
   <!--js読み込み-->
 <script src="js/location.js"></script>
+<link rel="stylesheet" href="css/location.css" >
 <!--bootstrap読み込み-->
 <script src="../import/jquery-3.3.1.js" ></script>
 <link rel="stylesheet" href="../import/bootstrap.min.css" >
