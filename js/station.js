@@ -39,32 +39,47 @@ openReq.onupgradeneeded = function (event) {
 }
 
 //onupgradeneededの後に実行。更新がない場合はこれだけ実行
-/*
 openReq.onsuccess = function (event) {
     var db = event.target.result;
     var trans = db.transaction(storeName, 'readonly');
     var store = trans.objectStore(storeName);
 
-    var weather = [];
 
     store.openCursor().onsuccess = function(event) {
     
     var cursor = event.target.result;
       if (cursor) {
-	var table = document.getElementById('locationTable');
-	var newRow = table.insertRow();
+	var table = document.getElementById('pastStation');
+    
+    var newRow = table.insertRow();
 
-	var newCell = newRow.insertCell();
-	var newText = document.createTextNode(cursor.value.lat);	
-	newCell.appendChild(newText);
-
-	newCell = newRow.insertCell();
-	newText = document.createTextNode(cursor.value.long);
-	newCell.appendChild(newText);
-
-	newCell = newRow.insertCell();
-	newText = document.createTextNode(cursor.value.time);
-	newCell.appendChild(newText);
+    //ボタン追加
+    	var newCell = newRow.insertCell();	
+   		const addButton = document.createElement('button');
+   		addButton.classList.add('btn');
+   		addButton.classList.add('btn-outline-secondary');
+   		addButton.classList.add('past-station');
+   		addButton.type = 'button';
+  		addButton.value = cursor.value.id;
+  		//addButton.id = 'paststation'+num;
+  		addButton.addEventListener('click', goStation, false);
+  		var newText = document.createTextNode("ここに行く");
+  		addButton.appendChild(newText);
+ 		newCell.appendChild(addButton);
+ 		
+ 		//駅名
+ 		//var innerText = station['name']+"駅<br>"+station['line']
+ 		newCell = newRow.insertCell();
+ 		newText = document.createTextNode(cursor.value.name);
+ 		newCell.appendChild(newText);
+ 		//路線名
+ 		newCell = newRow.insertCell();
+ 		newText = document.createTextNode(cursor.value.line);
+ 		newCell.appendChild(newText);
+		//都道府県
+ 		newCell = newRow.insertCell();
+ 		newText = document.createTextNode(cursor.value.prefecture);
+ 		newCell.appendChild(newText);
 
     	cursor.continue();
 	
@@ -74,10 +89,20 @@ openReq.onsuccess = function (event) {
     } 
    };
 
+ };
 
+
+/*
+*
+*選択した履歴の駅を表示する。
 */
 
+ function goStation(){
+  	var id = this.value;
+    window.location.href = 'station/?id='+id+'';
+  	 			    
 
+    }
 /*
 *
 *選択した最寄り駅を表示する。
