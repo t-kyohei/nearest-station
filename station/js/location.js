@@ -1,5 +1,5 @@
 var dbName = 'stationDB';
-var dbVersion = '1';
+var dbVersion = '2';
 var storeName  = 'station';
 var storeName2  = 'location';
 var count = 0;
@@ -131,6 +131,19 @@ function getDistance(){
   						node.appendChild(newText);
                 		
                 		
+                		//DBのlocationを開く
+	  	                var db;
+			            var request = indexedDB.open(dbName);
+			            request.onerror = function(event) {
+  			             console.log('DB error');
+  			            		};
+			            request.onsuccess = function(event) {
+ 	 		            db = event.target.result;
+ 	 		            var trans = db.transaction(storeName2, 'readwrite');
+    		            var store = trans.objectStore(storeName2);
+    		            var putReq = store.put({staionid:id,longitude:locationlong,latitude:locationlat,time:date,distance:displayDistannce});
+                		
+                		
                 },
 			
 			  function( error ){
@@ -138,7 +151,7 @@ function getDistance(){
 				{
 					"enableHighAccuracy": true,
 					"timeout": 8000,
-					"maximumAge": 2000,
+					"maximumAge": 2000
 				});
             }
             

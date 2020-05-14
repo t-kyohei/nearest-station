@@ -2,7 +2,7 @@ var nowdata = "";
 
 
 var dbName = 'stationDB';
-var dbVersion = '1';
+var dbVersion = '2';
 var storeName  = 'station';
 var storeName2  = 'location';
 var count = 0;
@@ -29,7 +29,7 @@ openReq.onupgradeneeded = function (event) {
     
     const objectStore2 = db.createObjectStore(storeName2, {keyPath : 'id',autoIncrement : true })
     objectStore2.createIndex("id", "id", { unique: true });
-    objectStore2.createIndex("staionid", "staionid", { unique: false });
+    objectStore2.createIndex("stationid", "stationid", { unique: false });
     objectStore2.createIndex("longitude", "longitude", { unique: false });
     objectStore2.createIndex("latitude", "latitude", { unique: false });
     objectStore2.createIndex("time", "time", { unique: false });
