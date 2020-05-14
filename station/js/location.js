@@ -40,7 +40,7 @@ openReq.onsuccess = function (event) {
   	var data = event.target.result;
   	//駅名を追加
   	var node = document.getElementById('destination');
-  	var newText =  document.createTextNode(data.name+"駅");
+  	var newText =  document.createTextNode(data.name+"駅("+data.line+")");
   	node.appendChild(newText);
   	//位置情報をセット
   	dlong =data.longitude;
@@ -131,7 +131,15 @@ function getDistance(){
   						node.appendChild(newText);
                 		
                 		
-                });
+                },
+			
+			  function( error ){
+				},
+				{
+					"enableHighAccuracy": true,
+					"timeout": 8000,
+					"maximumAge": 2000,
+				});
             }
             
 }
