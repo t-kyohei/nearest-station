@@ -121,7 +121,7 @@ function getDistance(){
   	document.getElementById('getDistance').classList.add("d-none");
   	document.getElementById('loadDistance').classList.remove("d-none");
   	var nowdate = new Date();
-  	nowdate.setSeconds(nowdate.getSeconds() - 10);
+  	nowdate.setSeconds(nowdate.getSeconds() - 20);
   	
 	if (navigator.geolocation) {
         	watch_id=navigator.geolocation.watchPosition(
@@ -140,11 +140,12 @@ function getDistance(){
   						}
   						node.appendChild(newText);
                 		
-                		if(nowdate < date){
+                		if(nowdate <= date){
                 		nowdate.setSeconds(nowdate.getSeconds() + 10);
                 		}
                 		//DBのlocationを開く
-                		if(nowdate=="now" || nowdate < date){
+                		if(nowdate <= date){
+                		nowdate = date;
 	  	                var db;
 			            var request = indexedDB.open(dbName,dbVersion);
 			            request.onerror = function(event) {
@@ -154,25 +155,14 @@ function getDistance(){
  	 		            db = event.target.result;
  	 		            var trans = db.transaction(storeName2, 'readwrite');
     		            var store = trans.objectStore(storeName2);
-    		            var putReq = store.put({stationid:id,longitude:locationlong,latitude:locationlat,time:insertdate,distance:displayDistannce});
-    		              		
-    		            putReq.onsuccess = function(e){
-     		            //登録時に実行
-     		            var id = e.target.result;
-     		             console.log('put data success');
-     		             
-     		             }
-
-		                trans.oncomplete = function(){
-    		            // トランザクション完了時(putReq.onsuccessの後)に実行
-    		            nowdate = date;
-      		             console.log('transaction complete'+nowdate);
-    		            }
-    		            
-    		            
+    		            store.put({stationid:id,longitude:locationlong,latitude:locationlat,time:insertdate,distance:displayDistannce});
+    		             console.log(nowdate);
     		            
                 		};
+                		}else{
+                		nowdate.setSeconds(nowdate.getSeconds() - 10);
                 		}
+                		
                 },
 			  function(error){
 				},
