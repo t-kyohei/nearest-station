@@ -47,7 +47,9 @@ openReq.onsuccess = function (event) {
     dlat = data.latitude;
     
     //MAP表示
+    if (navigator.onLine) {
     showMap();
+    }
    	};
 	
 /*
@@ -376,11 +378,15 @@ function stopDistance(){
 
 
 /*
-*停止ボタン押下時に、距離を計算を停止
+*再表示ボタン押下時に、距離を再計算
 */
 document.getElementById('showMap').addEventListener('click', function () {
 
+if (!navigator.onLine) {
+alert("オフラインです。");
+}else{
 showMap();
+}
 
  });
 
@@ -392,6 +398,7 @@ showMap();
 
 
 function showMap(){
+
 
 var map;
 var marker = [];
