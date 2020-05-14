@@ -98,13 +98,24 @@ getDistance();
  });
 
 /*
-*
-*現在地と目的地に距離を計算
+*停止ボタン押下時に、距離を計算を停止
 */
+document.getElementById('stopDistance').addEventListener('click', function () {
+
+stopDistance();
+
+ });
+/*
+*
+*現在地と目的地に距離を計算開始
+*/
+
+var watch_id;
+
 function getDistance(){
   
 	if (navigator.geolocation) {
-        	navigator.geolocation.getCurrentPosition(
+        	watch_id=navigator.geolocation.watchPosition(
         		function (pos) {
                 		var locationlat = pos.coords.latitude;
               			var locationlong = pos.coords.longitude;
@@ -122,6 +133,20 @@ function getDistance(){
                 		
                 });
             }
+            
+}
+
+
+
+/*
+*
+*現在地と目的地に距離を計算停止
+*/
+
+function stopDistance(){
+	if (navigator.geolocation) {
+    		    	watch_id = navigator.geolocation.clearWatch(watch_id);
+        	}
             
 }
 /*
