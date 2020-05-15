@@ -158,6 +158,24 @@ self.addEventListener('sync', function(evt) {
                   stationid = value;
                   stationName = cursor.value.name;
                   
+                  /*
+                  *最寄り駅取得を通知
+                  *
+                  */
+
+                      var title = "最寄り駅情報を取得しました。";
+                      var body = stationName+"駅に行きましょう。";
+                      click = "https://t-kyohei.github.io/nearest-station/station/?id="+stationid+"";
+                      
+                      
+                          self.registration.showNotification(title, {
+                              body: body,
+                              icon: 'img/icon.jpg',
+                              tag: 'push-notification-tag',
+                          })
+                      ;
+                    
+                  
                 }else{ 
                 	cursor.continue();
                 }
@@ -176,6 +194,25 @@ self.addEventListener('sync', function(evt) {
      		var id = e.target.result;
      		 console.log('put data success');
      		 stationid = e.target.result;
+     		 
+     		 /*
+             *最寄り駅取得を通知
+             *
+             */
+
+                      var title = "最寄り駅情報を取得しました。";
+                      var body = stationName+"駅に行きましょう。";
+                      click = "https://t-kyohei.github.io/nearest-station/station/?id="+stationid+"";
+                      
+                      
+                          self.registration.showNotification(title, {
+                              body: body,
+                              icon: 'img/icon.jpg',
+                              tag: 'push-notification-tag',
+                          })
+                      ;
+                    
+     		 
      		
     		};
 
@@ -192,23 +229,7 @@ self.addEventListener('sync', function(evt) {
            }
        
 
-/*
-*最寄り駅取得を通知
-*
-*/
 
-    var title = "最寄り駅情報を取得しました。";
-    var body = stationName+"駅に行きましょう。";
-    click = "https://t-kyohei.github.io/nearest-station/station/?id="+stationid+"";
-    
-    
-        self.registration.showNotification(title, {
-            body: body,
-            icon: 'img/icon.jpg',
-            tag: 'push-notification-tag',
-        })
-    ;
-  
    });
   }
 
