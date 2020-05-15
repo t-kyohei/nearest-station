@@ -168,7 +168,7 @@ self.addEventListener('sync', function(evt) {
      		//登録時に実行
      		var id = e.target.result;
      		 console.log('put data success');
-     		 window.location.href = 'station/?id='+id+'';
+     		
     		};
 
 		    trans.oncomplete = function(){
