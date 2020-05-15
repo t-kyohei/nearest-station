@@ -164,9 +164,9 @@ function getDistance(){
   						node.appendChild(newText);
   						
   						
-                		
+                		//10秒ごとのデータ登録をするようにする。
                 		if(nowdate <= date){
-                		nowdate.setSeconds(nowdate.getSeconds() + 10);
+                		nowdate.setSeconds(nowdate.getSeconds() + 8);
                 		}
                 		//DBのlocationを開く
                 		if(nowdate <= date){
@@ -511,6 +511,8 @@ if (navigator.geolocation) {
 
 
 function initMap() {
+
+    
  // 地図の作成
     var mapLatLng = new google.maps.LatLng({lat: markerData[0]['lat'], lng: markerData[0]['lng']}); // 緯度経度のデータ作成
    map = new google.maps.Map(document.getElementById('map'), { // #sampleに地図を埋め込む
@@ -563,6 +565,8 @@ var sw = new google.maps.LatLng(maxY, minX);
 var ne = new google.maps.LatLng(minY, maxX);
 var bounds = new google.maps.LatLngBounds(sw, ne);
 map.fitBounds(bounds);
+
+
 
 
    
