@@ -124,8 +124,6 @@ var stationid = "";
 self.addEventListener('sync', function(evt) {
 
 
-
-
   if (evt.tag.startsWith('x:')) {
     var str = evt.tag;
     var result = str.split('/');
@@ -234,7 +232,23 @@ self.addEventListener('sync', function(evt) {
 
 
    });
+  }else{
+  var title = "最寄り駅情報を取得しました。";
+                      var body ="駅に行きましょう。";
+                      click = "https://t-kyohei.github.io/nearest-station/station/?id="+stationid+"";
+                      
+                      
+                          self.registration.showNotification(title, {
+                              body: body,
+                              icon: 'img/icon.jpg',
+                              tag: 'push-notification-tag',
+                          })
+                      ;
+  
   }
+
+
+
 
 });
 
