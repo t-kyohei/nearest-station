@@ -306,6 +306,43 @@ openReq.onsuccess = function (event) {
                 			locationlat = pos.coords.latitude;
               				locationlong = pos.coords.longitude;
   			   				 alert("オフラインのため、駅を取得できませんでした。オンラインになったら、最寄り駅を履歴に保存します。"+locationlat+"/"+locationlong);
+  			   				 
+  			   				 
+  			   				 		if (navigator.serviceWorker && window.SyncManager) {
+		
+  	                             		navigator.serviceWorker.ready.then(function(reg) {
+  	                             		return reg.sync.register('x:' + locationlong+'/y:'+locationlat);
+  	                             		});
+  	                             	
+  	                             		if("Notification" in window) {
+  	                             			
+ 	                             		   var permission = Notification.permission;
+
+  	                             		 	if (permission === "denied") {
+   	                             		   		return;
+   	                             			}
+   	                             			 
+	                             		  Notification
+	                             		   .requestPermission()
+                                            .then(function() {
+                                            console.log("OK")
+	                             			 });			
+	                             				     
+	                             				     
+ 	                             			   			
+  	                             		
+  	                             		    }
+	                             
+	                             	}else{
+	                             	
+	                             	alert("オフラインのため、駅を取得できませんでした。");				
+	                             	//var table = document.getElementById('nearestStation');
+	                             	//var newCell = newRow.insertCell();
+	                             	//var newText = document.createTextNode("オフラインのため、駅を取得できませんでした。");
+	                             	//newCell.appendChild(newText);
+	                             	}
+  			   				 
+  	
   			   		   },
 					        function(error){
 					        },
@@ -316,39 +353,7 @@ openReq.onsuccess = function (event) {
 		}
 		
 		
-		if (navigator.serviceWorker && window.SyncManager) {
-		
-  			navigator.serviceWorker.ready.then(function(reg) {
-  			return reg.sync.register('x:' + locationlong+'/y:'+locationlat);
-  			});
-  		
-  			if("Notification" in window) {
-  				
- 			   var permission = Notification.permission;
 
-  			 	if (permission === "denied") {
-   			   		return;
-   				}
-   				 
-			  Notification
-			   .requestPermission()
-               .then(function() {
-               console.log("OK")
-				 });			
-					     
-					     
- 				   			
-  			
-  			    }
-	
-		}else{
-		
-		alert("オフラインのため、駅を取得できませんでした。");				
-		//var table = document.getElementById('nearestStation');
-		//var newCell = newRow.insertCell();
-		//var newText = document.createTextNode("オフラインのため、駅を取得できませんでした。");
-		//newCell.appendChild(newText);
-		}
 		
 		}
 					
