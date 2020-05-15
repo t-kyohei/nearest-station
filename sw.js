@@ -3,9 +3,9 @@ var dbVersion = '2';
 var storeName  = 'station';
 var storeName2  = 'location';
 
-var CACHE_NAME = 'station-test-caches-006';
+var CACHE_NAME = 'station-test-caches-007';
 var urlsToCache = ['./index.html?002', 
-					'./js/station.js?003',
+					'./js/station.js?004',
 					'./import/bootstrap.min.css?001',
 					'./import/bootstrap.min.js?001',
 					'./import/jquery-3.3.1.js?001',
