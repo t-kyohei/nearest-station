@@ -187,7 +187,7 @@ openReq.onsuccess = function (event) {
 *最寄り駅を取得する。
 */
     document.getElementById('getNearest').addEventListener('click', function () {
-   if (!navigator.onLine) {
+   if (var test == "navigator.onLine") {
 	if (navigator.geolocation) {
         	navigator.geolocation.getCurrentPosition(
         		function (pos) {
