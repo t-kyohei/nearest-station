@@ -1,3 +1,8 @@
+var dbName = 'stationDB';
+var dbVersion = '2';
+var storeName  = 'station';
+var storeName2  = 'location';
+
 var CACHE_NAME = 'station-test-caches-005';
 var urlsToCache = ['./index.html?002', 
 					'./js/station.js?002',
@@ -116,8 +121,8 @@ self.addEventListener('sync', function(evt) {
   if (evt.tag.startsWith('x:')) {
     var str = evt.tag;
     var result = str.split('/');
-    var x = result[0].substr( 3 );
-    var y = result[1].substr( 3 );
+    var x = result[0].substr( 2 );
+    var y = result[1].substr( 2 );
     
 	var owmURL = "https://express.heartrails.com/api/json?method=getStations&x="+x+"&y="+y+"";
       
