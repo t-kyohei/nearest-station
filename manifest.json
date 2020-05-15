@@ -1,6 +1,6 @@
 {
-    "name": "Nearest Station",
-    "short_name": "NS",
+    "name": "駅まで歩こう",
+    "short_name": "駅まで歩こう",
     "icons": [
         {
           "src": "img/icon.jpg",

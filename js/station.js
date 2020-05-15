@@ -6,7 +6,7 @@ var dbVersion = '2';
 var storeName  = 'station';
 var storeName2  = 'location';
 var count = 0;
-//　DB名を指定して接続
+//DB名を指定して接続
 var openReq  = indexedDB.open(dbName, dbVersion);
 // 接続に失敗
 openReq.onerror = function (event) {
@@ -119,7 +119,7 @@ openReq.onsuccess = function (event) {
 */
 
     function setStation(){
-
+    
     //var v = val;
   	var value = this.value;
   	var station = window.nowdata[value];
@@ -172,6 +172,13 @@ openReq.onsuccess = function (event) {
            
            }
            }
+       
+       
+       
+       
+       
+       
+       
 
     }
 
@@ -180,7 +187,7 @@ openReq.onsuccess = function (event) {
 *最寄り駅を取得する。
 */
     document.getElementById('getNearest').addEventListener('click', function () {
-  
+   if (navigator.onLine) {
 	if (navigator.geolocation) {
         	navigator.geolocation.getCurrentPosition(
         		function (pos) {
@@ -188,7 +195,8 @@ openReq.onsuccess = function (event) {
               			var locationlong = pos.coords.longitude;
                 		var date = new Date().toLocaleString();
    
-				        
+				       
+								//オンラインなら以下を実施
 				        // XMLHttpRequestオブジェクトの作成
 						var request = new XMLHttpRequest();
 						
@@ -276,12 +284,7 @@ openReq.onsuccess = function (event) {
 						request.responseType = 'json';
 						request.send();
 						
-						
-						
-						
-						
-						
-					
+
 						
 
 			});
@@ -289,36 +292,65 @@ openReq.onsuccess = function (event) {
 
         }
 		//location.reload();
-    });
-
-
-    
-    
-    /*
-     document.getElementById('btnLocationDel').addEventListener('click', function () {
-
-		var db = event.target.result;
-    	var trans = db.transaction(storeName, 'readwrite');
-    	var store = trans.objectStore(storeName);
-    	store.openCursor().onsuccess = function(event) {
-            var cursor = event.target.result;
-           if (cursor) {
-                if(cursor.value.name == station['name'] && cursor.value.line == station['line']){
-                  var value = cursor.value.id;
-                  window.location.href = 'station/?id='+value+'';
-                }else{ 
-                	cursor.continue();
-                }
-              
-           }
-        }
-   	 	var request = store.clear();
-		request.onsuccess = function (event) {
-		// 全件削除後の処理
-		alert("位置情報を全て削除しました。");
-		location.reload();
+		
+		
 		}
 		
-    });
-    */
+		else{
+		
+		if (navigator.serviceWorker && window.SyncManager) {
+		
+  			navigator.serviceWorker.ready.then(function(reg) {
+  		
+  			if("Notification" in window) {
+  				
+ 			   var permission = Notification.permission;
 
+  			 	if (permission === "denied") {
+		    		alert("オフラインのため、駅を取得できませんでした。");	
+   			   		return;
+   				}
+   				 
+			  Notification
+			   .requestPermission()
+               .then(function() {
+               if (navigator.geolocation) {
+        			navigator.geolocation.getCurrentPosition(
+        				function (pos) {
+                			var locationlat = pos.coords.latitude;
+              				var locationlong = pos.coords.longitude;
+  			   				 alert("オフラインのため、駅を取得できませんでした。オンラインになったら、最寄り駅を履歴に保存します。");
+							return reg.sync.register('x:' + locationlong+'/y:'+locationlat);
+					     
+					     
+ 				   			},
+					        function(error){
+					        },
+					        {"enableHighAccuracy": true,
+					        "timeout": 8000,
+					        "maximumAge": 2000
+					        });
+  			
+  			    }else{
+  			    alert("オフラインのため、駅を取得できませんでした。");	
+  			    return;
+  			    }
+  			    });  			
+            }
+            });
+				
+	
+		}else{
+		
+		alert("オフラインのため、駅を取得できませんでした。");				
+		//var table = document.getElementById('nearestStation');
+		//var newCell = newRow.insertCell();
+		//var newText = document.createTextNode("オフラインのため、駅を取得できませんでした。");
+		//newCell.appendChild(newText);
+		}
+		
+		}
+					
+    });
+
+    
