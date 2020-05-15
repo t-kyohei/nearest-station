@@ -150,7 +150,7 @@ self.addEventListener('sync', function(evt) {
            if (cursor) {
                 if(cursor.value.name == station['name'] && cursor.value.line == station['line']){
                   var value = cursor.value.id;
-                  window.location.href = 'station/?id='+value+'';
+                  
                 }else{ 
                 	cursor.continue();
                 }
