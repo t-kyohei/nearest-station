@@ -122,7 +122,8 @@ var stationName = "";
 var stationid = "";
 
 self.addEventListener('sync', function(evt) {
-
+var title = "最寄り駅情報を取得しました。";
+ var body = "駅に行きましょう。";
 self.registration.showNotification(title, {
                               body: body,
                               icon: 'img/icon.jpg',
