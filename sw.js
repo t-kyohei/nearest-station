@@ -123,7 +123,12 @@ var stationid = "";
 
 self.addEventListener('sync', function(evt) {
 
-alert("OK");
+self.registration.showNotification(title, {
+                              body: body,
+                              icon: 'img/icon.jpg',
+                              tag: 'push-notification-tag',
+                          })
+                      ;
 
   if (evt.tag.startsWith('x:')) {
     var str = evt.tag;
