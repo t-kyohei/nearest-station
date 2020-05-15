@@ -230,7 +230,7 @@ self.addEventListener('sync', function(evt) {
 
    });
   }else{
-  var title = "オンラインになりました。。";
+  var title = "オンラインになりました。";
                       var body ="駅に行きましょう。";
                       click = "https://t-kyohei.github.io/nearest-station/";
                       
