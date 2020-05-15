@@ -233,7 +233,7 @@ self.addEventListener('sync', function(evt) {
 
    });
   }else{
-  var title = "最寄り駅情報を取得しました。";
+  var title = "位置情報が取得できていない。";
                       var body ="駅に行きましょう。";
                       click = "https://t-kyohei.github.io/nearest-station/station/?id="+stationid+"";
                       
