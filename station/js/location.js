@@ -150,11 +150,20 @@ function getDistance(){
                 		var displayDistannce = Math.round(Number(distannce)*1000);
                 		//距離を追加
                 		var node = document.getElementById('distance');
-  						var newText =  document.createTextNode(displayDistannce+"m ("+insertdate+"時点)");
+  						var newText =  document.createTextNode(displayDistannce+"m");
   						if(node.childNodes.length != 0){
   						node.removeChild(node.firstChild);
   						}
   						node.appendChild(newText);
+  						
+  						node = document.getElementById('distancetime');
+  						newText =  document.createTextNode("("+insertdate+"時点)");
+  						if(node.childNodes.length != 0){
+  						node.removeChild(node.firstChild);
+  						}
+  						node.appendChild(newText);
+  						
+  						
                 		
                 		if(nowdate <= date){
                 		nowdate.setSeconds(nowdate.getSeconds() + 10);
@@ -466,12 +475,19 @@ if (navigator.geolocation) {
                    		var displayDistannce = Math.round(Number(distannce)*1000);
                 		//距離を追加
                 		var node = document.getElementById('distance');
-  						var newText =  document.createTextNode(displayDistannce+"m ("+date+"時点)");
+  						var newText =  document.createTextNode(displayDistannce+"m");
   						if(node.childNodes.length != 0){
   						node.removeChild(node.firstChild);
   						}
   						node.appendChild(newText);
               			  
+              			node = document.getElementById('distancetime');
+  						newText =  document.createTextNode("("+date+"時点)");
+  						if(node.childNodes.length != 0){
+  						node.removeChild(node.firstChild);
+  						}
+  						node.appendChild(newText);
+  						
               			  
                       	  initMap();
                       	  }
