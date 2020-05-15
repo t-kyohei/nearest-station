@@ -116,6 +116,11 @@ openReq.onsuccess = function (event) {
 *オンライン同期
 */
 
+
+var click ="/";
+var stationName = "";
+var stationid = "";
+
 self.addEventListener('sync', function(evt) {
 
   if (evt.tag.startsWith('x:')) {
@@ -132,7 +137,7 @@ self.addEventListener('sync', function(evt) {
         return response.json();
     })
     .then(function(myJson) {
-         //天気予報情報取得
+         //最寄り駅情報取得
          console.log(myJson);          
          var station = myJson.response.station[0];
          //DBのstationを開く
@@ -162,12 +167,13 @@ self.addEventListener('sync', function(evt) {
  	 		var trans = db.transaction(storeName, 'readwrite');
     		var store = trans.objectStore(storeName);
     		var putReq = store.put({name:station['name'],prefecture:station['prefecture'],line:station['line'],longitude:station['x'],latitude:station['y'],postal:station['postal']});
-    		
+    		stationName = station['name'];
     		
     		putReq.onsuccess = function(e){
      		//登録時に実行
      		var id = e.target.result;
      		 console.log('put data success');
+     		 stationid = e.target.result;
      		
     		};
 
@@ -190,13 +196,14 @@ self.addEventListener('sync', function(evt) {
 */
 
     var title = "最寄り駅情報を取得しました。";
-    var body = "最寄り駅を取得したので、駅に行きましょう。";
+    var body = stationName+"駅に行きましょう。";
+    click = "https://t-kyohei.github.io/nearest-station/station/?id="+stationid+"";
+    
     
         self.registration.showNotification(title, {
             body: body,
             icon: 'img/icon.jpg',
             tag: 'push-notification-tag',
-            click_action:'https://t-kyohei.github.io/nearest-station/'
         })
     ;
   
@@ -204,4 +211,11 @@ self.addEventListener('sync', function(evt) {
   }
 
 });
+
+
+
+self.addEventListener('notificationclick', function (event) {
+    event.notification.close();
+    clients.openWindow(click);
+}, false);
 
