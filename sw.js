@@ -217,10 +217,7 @@ self.addEventListener('sync', function(evt) {
      		
     		};
 
-		    trans.oncomplete = function(){
-    		// トランザクション完了時(putReq.onsuccessの後)に実行
-      		 console.log('transaction complete');
-    		};
+		    
     		 
     		 
 		   }
@@ -233,7 +230,7 @@ self.addEventListener('sync', function(evt) {
 
    });
   }else{
-  var title = "位置情報が取得できていない。";
+  var title = "位置情報が取得できていません。";
                       var body ="駅に行きましょう。";
                       click = "https://t-kyohei.github.io/nearest-station/station/?id="+stationid+"";
                       

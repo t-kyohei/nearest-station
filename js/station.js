@@ -187,8 +187,8 @@ openReq.onsuccess = function (event) {
 *最寄り駅を取得する。
 */
     document.getElementById('getNearest').addEventListener('click', function () {
-    var test="";
-   if (test == "navigator.onLine") {
+    
+   if (navigator.onLine) {
 	if (navigator.geolocation) {
         	navigator.geolocation.getCurrentPosition(
         		function (pos) {
@@ -305,11 +305,9 @@ openReq.onsuccess = function (event) {
         				function (pos) {
                 			locationlat = pos.coords.latitude;
               				locationlong = pos.coords.longitude;
-  			   				 alert("オフラインのため、駅を取得できませんでした。オンラインになったら、最寄り駅を履歴に保存します。"+locationlat+"/"+locationlong);
-  			   				 
-  			   				 
+
   			   				 		if (navigator.serviceWorker && window.SyncManager) {
-		
+										alert("オフラインのため、駅を取得できませんでした。オンラインになったら、最寄り駅を履歴に保存します。");
   	                             		navigator.serviceWorker.ready.then(function(reg) {
   	                             		return reg.sync.register('x:' + locationlong+'/y:'+locationlat);
   	                             		});
