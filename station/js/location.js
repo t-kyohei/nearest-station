@@ -12,6 +12,15 @@ var dlong ="";
 var dlat ="";
 
 
+//ページ表示時はまず取得停止
+document.addEventListener("visibilitychange", function() {
+    if (document.hidden) {
+		   stopDistance();
+    } 
+});
+    
+    
+
 //クエリパラメータの取得
 function getParam(name, url) {
     if (!url) url = window.location.href;
@@ -49,6 +58,10 @@ openReq.onsuccess = function (event) {
     //MAP表示
     if (navigator.onLine) {
     showMap();
+    }else{
+    var node = document.getElementById('map');
+    var newText =  document.createTextNode("オフラインのため、地図を表示できません。");
+    node.appendChild(newText);
     }
    	};
 	
@@ -120,6 +133,9 @@ var watch_id;
 function getDistance(){
   	document.getElementById('getDistance').classList.add("d-none");
   	document.getElementById('loadDistance').classList.remove("d-none");
+  	document.getElementById('deleteDistance').setAttribute("disabled", true);
+  	document.getElementById('showMap').setAttribute("disabled", true);
+  	
   	var nowdate = new Date();
   	nowdate.setSeconds(nowdate.getSeconds() - 20);
   	
@@ -155,8 +171,15 @@ function getDistance(){
  	 		            db = event.target.result;
  	 		            var trans = db.transaction(storeName2, 'readwrite');
     		            var store = trans.objectStore(storeName2);
-    		            store.put({stationid:id,longitude:locationlong,latitude:locationlat,time:insertdate,distance:displayDistannce});
-    		             console.log(nowdate);
+    		            var reqPut = store.put({stationid:id,longitude:locationlong,latitude:locationlat,time:insertdate,distance:displayDistannce});
+    		            console.log(nowdate);
+    		               		reqPut.onsuccess = function (event) {
+									   if (navigator.onLine) {
+									   //登録後オンラインなら地図表示
+									   showMap();
+									   
+									   }
+								};
     		            
                 		};
                 		}else{
@@ -185,6 +208,8 @@ function getDistance(){
 function stopDistance(){
 	document.getElementById('loadDistance').classList.add("d-none");
   	document.getElementById('getDistance').classList.remove("d-none");
+  	document.getElementById('deleteDistance').removeAttribute("disabled");
+  	document.getElementById('showMap').removeAttribute("disabled");
   	
 	if (navigator.geolocation) {
     		    	watch_id = navigator.geolocation.clearWatch(watch_id);
@@ -373,7 +398,7 @@ function stopDistance(){
 document.getElementById('showMap').addEventListener('click', function () {
 
 if (!navigator.onLine) {
-alert("オフラインです。");
+alert("オフラインのため、地図情報を取得できませんでした。");
 }else{
 showMap();
 }
