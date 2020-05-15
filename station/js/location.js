@@ -213,7 +213,7 @@ function stopDistance(){
   	
 	if (navigator.geolocation) {
     		    	watch_id = navigator.geolocation.clearWatch(watch_id);
-        	}
+     }
             
 }
 /*
