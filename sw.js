@@ -196,7 +196,7 @@ self.addEventListener('sync', function(evt) {
             body: body,
             icon: 'img/icon.jpg',
             tag: 'push-notification-tag',
-            onclick_action:'https://t-kyohei.github.io/nearest-station/'
+            click_action:'https://t-kyohei.github.io/nearest-station/'
         })
     ;
   
