@@ -230,9 +230,9 @@ self.addEventListener('sync', function(evt) {
 
    });
   }else{
-  var title = "位置情報が取得できていません。";
+  var title = "オンラインになりました。。";
                       var body ="駅に行きましょう。";
-                      click = "https://t-kyohei.github.io/nearest-station/station/?id="+stationid+"";
+                      click = "https://t-kyohei.github.io/nearest-station/";
                       
                       
                           self.registration.showNotification(title, {
