@@ -237,7 +237,7 @@ self.addEventListener('sync', function(evt) {
                       
                           self.registration.showNotification(title, {
                               body: body,
-                              icon: 'img/icon.jpg',
+                              icon: '',
                               tag: 'push-notification-tag',
                           })
                       ;
