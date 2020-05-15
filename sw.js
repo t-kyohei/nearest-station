@@ -123,6 +123,8 @@ var stationid = "";
 
 self.addEventListener('sync', function(evt) {
 
+alert("OK");
+
   if (evt.tag.startsWith('x:')) {
     var str = evt.tag;
     var result = str.split('/');
