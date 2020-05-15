@@ -319,7 +319,7 @@ openReq.onsuccess = function (event) {
         				function (pos) {
                 			var locationlat = pos.coords.latitude;
               				var locationlong = pos.coords.longitude;
-  			   				 alert("オフラインのため、駅を取得できませんでした。オンラインになったら、最寄り駅を履歴に保存します。");
+  			   				 alert("オフラインのため、駅を取得できませんでした。オンラインになったら、最寄り駅を履歴に保存します。"+locationlat+"/"+locationlong);
 							return reg.sync.register('x:' + locationlong+'/y:'+locationlat);
 					     
 					     
