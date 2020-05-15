@@ -298,48 +298,48 @@ openReq.onsuccess = function (event) {
 		}
 		
 		else{
-		
-		if (navigator.serviceWorker && window.SyncManager) {
-		
-  			navigator.serviceWorker.ready.then(function(reg) {
-  		
-  			if("Notification" in window) {
-  				
- 			   var permission = Notification.permission;
-
-  			 	if (permission === "denied") {
-		    		alert("オフラインのため、駅を取得できませんでした。");	
-   			   		return;
-   				}
-   				 
-			  Notification
-			   .requestPermission()
-               .then(function() {
-               if (navigator.geolocation) {
+		var locationlat;
+		var locationlong;
+		if (navigator.geolocation) {
         			navigator.geolocation.getCurrentPosition(
         				function (pos) {
-                			var locationlat = pos.coords.latitude;
-              				var locationlong = pos.coords.longitude;
+                			locationlat = pos.coords.latitude;
+              				locationlong = pos.coords.longitude;
   			   				 alert("オフラインのため、駅を取得できませんでした。オンラインになったら、最寄り駅を履歴に保存します。"+locationlat+"/"+locationlong);
-							return reg.sync.register('x:' + locationlong+'/y:'+locationlat);
-					     
-					     
- 				   			},
+  			   		   },
 					        function(error){
 					        },
 					        {"enableHighAccuracy": true,
 					        "timeout": 8000,
 					        "maximumAge": 2000
 					        });
+		}
+		
+		
+		if (navigator.serviceWorker && window.SyncManager) {
+		
+  			navigator.serviceWorker.ready.then(function(reg) {
+  			return reg.sync.register('x:' + locationlong+'/y:'+locationlat);
+  			});
+  		
+  			if("Notification" in window) {
+  				
+ 			   var permission = Notification.permission;
+
+  			 	if (permission === "denied") {
+   			   		return;
+   				}
+   				 
+			  Notification
+			   .requestPermission()
+               .then(function() {
+               console.log("OK")
+				 });			
+					     
+					     
+ 				   			
   			
-  			    }else{
-  			    alert("オフラインのため、駅を取得できませんでした。");	
-  			    return;
   			    }
-  			    });  			
-            }
-            });
-				
 	
 		}else{
 		
