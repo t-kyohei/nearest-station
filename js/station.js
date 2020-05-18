@@ -300,16 +300,17 @@ openReq.onsuccess = function (event) {
 		else{
 		var locationlat;
 		var locationlong;
-		/*if (navigator.geolocation) {
+		if (navigator.geolocation) {
         			navigator.geolocation.getCurrentPosition(
         				function (pos) {
                 			locationlat = pos.coords.latitude;
-              				locationlong = pos.coords.longitude;*/
+              				locationlong = pos.coords.longitude;
 
   			   				 		if (navigator.serviceWorker && window.SyncManager) {
-										alert("オフラインのため、駅を取得できませんでした。オンラインになったら、通知します。");
+										alert("オフラインのため、駅を取得できませんでした。オンラインになったら通知します。");
   	                             		navigator.serviceWorker.ready.then(function(reg) {
-  	                             		return reg.sync.register('online');
+  	                             		return reg.sync.register('x:'+locationlong+'/y:'+locationlat);
+  	                             		//return reg.sync.register('online');
   	                             		});
   	                             	
   	                             		if("Notification" in window) {
@@ -339,7 +340,7 @@ openReq.onsuccess = function (event) {
 	                             	//var newText = document.createTextNode("オフラインのため、駅を取得できませんでした。");
 	                             	//newCell.appendChild(newText);
 	                             	}
-  			   				 /*
+  			   				 
   	
   			   		   },
 					        function(error){
@@ -350,7 +351,7 @@ openReq.onsuccess = function (event) {
 					        });
 		}
 		
-		*/
+		
 
 		
 		}
