@@ -307,7 +307,7 @@ openReq.onsuccess = function (event) {
               				locationlong = pos.coords.longitude;
 
   			   				 		if (navigator.serviceWorker && window.SyncManager) {
-										alert("オフラインのため、駅を取得できませんでした。オンラインになったら通知します。");
+										alert("オフラインのため、駅を取得できませんでした。オンラインになったら最寄りの駅を通知します。");
   	                             		navigator.serviceWorker.ready.then(function(reg) {
   	                             		return reg.sync.register('x:'+locationlong+'/y:'+locationlat);
   	                             		//return reg.sync.register('online');
