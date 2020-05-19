@@ -3,7 +3,7 @@
     "short_name": "駅まで歩こう",
     "icons": [
         {
-          "src": "img/icon2.jfif",
+          "src": "img/icon.png",
           "sizes": "192x192",
           "type": "image/png"
         },
